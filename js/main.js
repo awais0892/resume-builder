@@ -35,7 +35,12 @@ const SweetAlert = {
             confirmButtonColor: SweetAlert.theme.success,
             background: SweetAlert.config.background,
             backdrop: SweetAlert.config.backdrop,
-            customClass: SweetAlert.config.customClass,
+            customClass: {
+                popup: 'swal2-custom-popup',
+                confirmButton: 'swal2-custom-confirm',
+                title: 'swal2-custom-title',
+                content: 'swal2-custom-content'
+            },
             ...options
         });
     },
@@ -49,7 +54,12 @@ const SweetAlert = {
             confirmButtonColor: SweetAlert.theme.error,
             background: SweetAlert.config.background,
             backdrop: SweetAlert.config.backdrop,
-            customClass: SweetAlert.config.customClass,
+            customClass: {
+                popup: 'swal2-custom-popup',
+                confirmButton: 'swal2-custom-confirm',
+                title: 'swal2-custom-title',
+                content: 'swal2-custom-content'
+            },
             ...options
         });
     },
@@ -63,7 +73,12 @@ const SweetAlert = {
             confirmButtonColor: SweetAlert.theme.warning,
             background: SweetAlert.config.background,
             backdrop: SweetAlert.config.backdrop,
-            customClass: SweetAlert.config.customClass,
+            customClass: {
+                popup: 'swal2-custom-popup',
+                confirmButton: 'swal2-custom-confirm',
+                title: 'swal2-custom-title',
+                content: 'swal2-custom-content'
+            },
             ...options
         });
     },
@@ -77,7 +92,12 @@ const SweetAlert = {
             confirmButtonColor: SweetAlert.theme.info,
             background: SweetAlert.config.background,
             backdrop: SweetAlert.config.backdrop,
-            customClass: SweetAlert.config.customClass,
+            customClass: {
+                popup: 'swal2-custom-popup',
+                confirmButton: 'swal2-custom-confirm',
+                title: 'swal2-custom-title',
+                content: 'swal2-custom-content'
+            },
             ...options
         });
     },
@@ -93,7 +113,13 @@ const SweetAlert = {
             cancelButtonColor: SweetAlert.theme.dark,
             background: SweetAlert.config.background,
             backdrop: SweetAlert.config.backdrop,
-            customClass: SweetAlert.config.customClass,
+            customClass: {
+                popup: 'swal2-custom-popup',
+                confirmButton: 'swal2-custom-confirm',
+                cancelButton: 'swal2-custom-cancel',
+                title: 'swal2-custom-title',
+                content: 'swal2-custom-content'
+            },
             ...options
         });
     },
@@ -242,6 +268,8 @@ const SweetAlert = {
     },
 
     resumeReset: () => {
+        console.log('SweetAlert.resumeReset called');
+        
         return Swal.fire({
             title: 'Reset Resume',
             text: 'Are you sure you want to reset all resume data? This action cannot be undone.',
@@ -250,7 +278,24 @@ const SweetAlert = {
             confirmButtonColor: '#d33',
             cancelButtonColor: '#3085d6',
             confirmButtonText: 'Yes, reset it!',
-            cancelButtonText: 'Cancel'
+            cancelButtonText: 'Cancel',
+            allowOutsideClick: false,
+            allowEscapeKey: true,
+            focusConfirm: false,
+            focusCancel: false,
+            customClass: {
+                popup: 'swal2-custom-popup',
+                confirmButton: 'swal2-custom-confirm',
+                cancelButton: 'swal2-custom-cancel',
+                title: 'swal2-custom-title',
+                content: 'swal2-custom-content'
+            }
+        }).then((result) => {
+            console.log('SweetAlert result:', result);
+            return result;
+        }).catch((error) => {
+            console.error('SweetAlert error:', error);
+            throw error;
         });
     },
 
@@ -389,22 +434,49 @@ function initResumeFileUpload() {
     const extractionResults = document.getElementById('extractionResults');
     const applyExtractedData = document.getElementById('applyExtractedData');
     const previewExtractedData = document.getElementById('previewExtractedData');
+    const fileLabel = document.querySelector('label[for="resumeFile"]');
 
     if (resumeFileInput && extractDataBtn) {
         console.log('Resume file upload elements found, initializing...');
         
-        resumeFileInput.addEventListener('change', function (e) {
-            resumeFile = e.target.files[0];
-            console.log('File selected:', resumeFile ? resumeFile.name : 'No file');
-            console.log('File type:', resumeFile ? resumeFile.type : 'No file');
-            console.log('File size:', resumeFile ? resumeFile.size : 'No file');
-            extractDataBtn.disabled = !resumeFile;
+        // Remove any existing event listeners to prevent duplicates
+        const newResumeFileInput = resumeFileInput.cloneNode(true);
+        resumeFileInput.parentNode.replaceChild(newResumeFileInput, resumeFileInput);
+        
+        const newExtractDataBtn = extractDataBtn.cloneNode(true);
+        extractDataBtn.parentNode.replaceChild(newExtractDataBtn, extractDataBtn);
+        
+        // Get the new elements
+        const cleanResumeFileInput = document.getElementById('resumeFile');
+        const cleanExtractDataBtn = document.getElementById('extractDataBtn');
+        
+        // File input change handler
+        cleanResumeFileInput.addEventListener('change', function (e) {
+            const file = e.target.files[0];
+            resumeFile = file;
+            
+            console.log('File selected:', file ? file.name : 'No file');
+            console.log('File type:', file ? file.type : 'No file');
+            console.log('File size:', file ? file.size : 'No file');
+            
+            // Enable/disable extract button
+            cleanExtractDataBtn.disabled = !file;
+            
+            // Hide previous results
             if (extractionResults) {
                 extractionResults.style.display = 'none';
             }
+            
+            // Show file selected feedback
+            if (file && fileLabel) {
+                fileLabel.innerHTML = `<i class="fas fa-check me-2"></i>${file.name}`;
+                fileLabel.classList.remove('btn-outline-primary');
+                fileLabel.classList.add('btn-success');
+            }
         });
 
-        extractDataBtn.addEventListener('click', async function () {
+        // Extract button click handler
+        cleanExtractDataBtn.addEventListener('click', async function () {
             if (!resumeFile) {
                 console.log('No file selected');
                 SweetAlert.warning('No File Selected', 'Please select a resume file to extract data from.');
@@ -413,15 +485,34 @@ function initResumeFileUpload() {
             
             console.log('Starting extraction for file:', resumeFile.name);
             
+            // Disable button during processing
+            cleanExtractDataBtn.disabled = true;
+            cleanExtractDataBtn.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i>Processing...';
+            
             // Show loading alert
             const loadingAlert = SweetAlert.extractionStarted();
+            
+            // Add timeout to prevent hanging
+            const timeout = setTimeout(() => {
+                Swal.close();
+                SweetAlert.error('Processing Timeout', 'The file processing is taking too long. Please try a smaller file or refresh the page.');
+                cleanExtractDataBtn.disabled = false;
+                cleanExtractDataBtn.innerHTML = '<i class="fas fa-magic me-2"></i>Instant Extract & Fill';
+            }, 30000); // 30 second timeout
             
             try {
                 const text = await extractTextFromFile(resumeFile);
                 console.log('Text extracted, length:', text.length);
                 
+                if (!text || text.trim().length === 0) {
+                    throw new Error('No text could be extracted from the file. Please try a different file.');
+                }
+                
                 extractedData = await parseResumeWithAI(text);
                 console.log('Data parsed:', extractedData);
+                
+                // Clear timeout
+                clearTimeout(timeout);
                 
                 // Close loading alert
                 Swal.close();
@@ -433,16 +524,19 @@ function initResumeFileUpload() {
                     extractionResults.style.display = 'block';
                 }
                 
-                // Show preview of extracted data
+                // Remove old event listeners and add new ones
                 if (previewExtractedData) {
-                    previewExtractedData.addEventListener('click', () => {
+                    const newPreviewBtn = previewExtractedData.cloneNode(true);
+                    previewExtractedData.parentNode.replaceChild(newPreviewBtn, previewExtractedData);
+                    newPreviewBtn.addEventListener('click', () => {
                         showExtractedDataPreview(extractedData);
                     });
                 }
                 
-                // Apply data to form
                 if (applyExtractedData) {
-                    applyExtractedData.addEventListener('click', () => {
+                    const newApplyBtn = applyExtractedData.cloneNode(true);
+                    applyExtractedData.parentNode.replaceChild(newApplyBtn, applyExtractedData);
+                    newApplyBtn.addEventListener('click', () => {
                         applyExtractedDataToForm(extractedData);
                     });
                 }
@@ -450,13 +544,50 @@ function initResumeFileUpload() {
             } catch (error) {
                 console.error('Extraction error:', error);
                 
+                // Clear timeout
+                clearTimeout(timeout);
+                
                 // Close loading alert
                 Swal.close();
                 
                 // Show error alert
                 SweetAlert.extractionError(error.message);
+            } finally {
+                // Re-enable button
+                cleanExtractDataBtn.disabled = false;
+                cleanExtractDataBtn.innerHTML = '<i class="fas fa-magic me-2"></i>Instant Extract & Fill';
             }
         });
+        
+        // Mobile-friendly file input trigger
+        if (fileLabel) {
+            fileLabel.addEventListener('click', (e) => {
+                e.preventDefault();
+                cleanResumeFileInput.click();
+            });
+            
+            // Add touch support for mobile
+            fileLabel.addEventListener('touchstart', (e) => {
+                e.preventDefault();
+                cleanResumeFileInput.click();
+            }, { passive: false });
+        }
+        
+        // Function to reset file input state
+        window.resetFileInput = () => {
+            cleanResumeFileInput.value = '';
+            resumeFile = null;
+            cleanExtractDataBtn.disabled = true;
+            if (fileLabel) {
+                fileLabel.innerHTML = '<i class="fas fa-upload me-2"></i>Choose Resume File';
+                fileLabel.classList.remove('btn-success');
+                fileLabel.classList.add('btn-outline-primary');
+            }
+            if (extractionResults) {
+                extractionResults.style.display = 'none';
+            }
+        };
+        
     } else {
         console.log('Resume file upload elements not found:', {
             resumeFileInput: !!resumeFileInput,
@@ -2033,12 +2164,53 @@ function setupFormListeners() {
         // Reset Button
         const resetBtn = document.getElementById('resetBtn');
         if (resetBtn) {
-            resetBtn.addEventListener('click', () => {
-                SweetAlert.resumeReset().then((result) => {
-                    if (result.isConfirmed) {
+            // Add both click and touchstart events for better mobile support
+            const handleReset = (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                
+                console.log('Reset button clicked/touched');
+                
+                // Check if SweetAlert2 is available
+                if (typeof Swal === 'undefined') {
+                    console.error('SweetAlert2 not loaded');
+                    if (confirm('Are you sure you want to reset all resume data? This action cannot be undone.')) {
                         clearSavedResume();
                     }
-                });
+                    return;
+                }
+                
+                // Add a small delay to ensure the button click is registered
+                setTimeout(() => {
+                    SweetAlert.resumeReset().then((result) => {
+                        if (result.isConfirmed) {
+                            console.log('Reset confirmed, clearing data...');
+                            clearSavedResume();
+                        }
+                    }).catch((error) => {
+                        console.error('SweetAlert error:', error);
+                        // Fallback to regular confirm if SweetAlert fails
+                        if (confirm('Are you sure you want to reset all resume data? This action cannot be undone.')) {
+                            clearSavedResume();
+                        }
+                    });
+                }, 100);
+            };
+            
+            resetBtn.addEventListener('click', handleReset);
+            resetBtn.addEventListener('touchstart', handleReset, { passive: false });
+            
+            // Ensure button is touch-friendly
+            resetBtn.style.minHeight = '44px';
+            resetBtn.style.minWidth = '44px';
+            
+            // Add visual feedback for mobile
+            resetBtn.addEventListener('touchstart', () => {
+                resetBtn.style.opacity = '0.7';
+            });
+            
+            resetBtn.addEventListener('touchend', () => {
+                resetBtn.style.opacity = '1';
             });
         }
 
@@ -3502,26 +3674,57 @@ async function extractTextFromFile(file) {
 async function extractPDFText(file) {
     return new Promise((resolve, reject) => {
         const reader = new FileReader();
+        
         reader.onload = function () {
-            const typedarray = new Uint8Array(reader.result);
-            pdfjsLib.getDocument({ data: typedarray }).promise
-                .then(function (pdf) {
-                    const textPromises = [];
-                    for (let i = 1; i <= pdf.numPages; i++) {
-                        textPromises.push(
-                            pdf.getPage(i).then(page => 
-                                page.getTextContent().then(tc => 
-                                    tc.items.map(item => item.str).join(' ')
+            try {
+                const typedarray = new Uint8Array(reader.result);
+                
+                // Check if pdfjsLib is available
+                if (typeof pdfjsLib === 'undefined') {
+                    reject(new Error('PDF.js library not loaded. Please refresh the page and try again.'));
+                    return;
+                }
+                
+                pdfjsLib.getDocument({ data: typedarray }).promise
+                    .then(function (pdf) {
+                        const textPromises = [];
+                        for (let i = 1; i <= pdf.numPages; i++) {
+                            textPromises.push(
+                                pdf.getPage(i).then(page => 
+                                    page.getTextContent().then(tc => 
+                                        tc.items.map(item => item.str).join(' ')
+                                    )
                                 )
-                            )
-                        );
-                    }
-                    Promise.all(textPromises)
-                        .then(pages => resolve(pages.join('\n')))
-                        .catch(reject);
-                })
-                .catch(reject);
+                            );
+                        }
+                        Promise.all(textPromises)
+                            .then(pages => {
+                                const text = pages.join('\n');
+                                if (!text.trim()) {
+                                    reject(new Error('No text could be extracted from the PDF. The file might be image-based or corrupted.'));
+                                } else {
+                                    resolve(text);
+                                }
+                            })
+                            .catch(error => {
+                                console.error('PDF text extraction error:', error);
+                                reject(new Error('Failed to extract text from PDF. Please try a different file.'));
+                            });
+                    })
+                    .catch(error => {
+                        console.error('PDF loading error:', error);
+                        reject(new Error('Failed to load PDF file. Please check if the file is corrupted.'));
+                    });
+            } catch (error) {
+                console.error('PDF processing error:', error);
+                reject(new Error('Failed to process PDF file. Please try again.'));
+            }
         };
+        
+        reader.onerror = function () {
+            reject(new Error('Failed to read file. Please try again.'));
+        };
+        
         reader.readAsArrayBuffer(file);
     });
 }
@@ -3529,16 +3732,45 @@ async function extractPDFText(file) {
 async function extractWordText(file) {
     return new Promise((resolve, reject) => {
         const reader = new FileReader();
+        
         reader.onload = function (e) {
-            mammoth.extractRawText({ arrayBuffer: e.target.result })
-                .then(result => resolve(result.value))
-                .catch(reject);
+            try {
+                // Check if mammoth is available
+                if (typeof mammoth === 'undefined') {
+                    reject(new Error('Mammoth.js library not loaded. Please refresh the page and try again.'));
+                    return;
+                }
+                
+                mammoth.extractRawText({ arrayBuffer: e.target.result })
+                    .then(result => {
+                        if (!result.value.trim()) {
+                            reject(new Error('No text could be extracted from the Word document. The file might be corrupted or empty.'));
+                        } else {
+                            resolve(result.value);
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Word document extraction error:', error);
+                        reject(new Error('Failed to extract text from Word document. Please try a different file.'));
+                    });
+            } catch (error) {
+                console.error('Word document processing error:', error);
+                reject(new Error('Failed to process Word document. Please try again.'));
+            }
         };
+        
+        reader.onerror = function () {
+            reject(new Error('Failed to read file. Please try again.'));
+        };
+        
         reader.readAsArrayBuffer(file);
     });
 }
 
 async function parseResumeWithAI(text) {
+    console.log('Starting AI-powered resume parsing...');
+    console.log('Input text length:', text.length);
+    
     // Use compromise.js for NLP analysis
     const doc = nlp(text);
     
@@ -3554,9 +3786,16 @@ async function parseResumeWithAI(text) {
         certifications: extractCertifications(doc, cleanText)
     };
     
+    // Log extracted data for debugging
+    console.log('Extracted personal:', parsedData.personal);
+    console.log('Extracted experience:', parsedData.experience);
+    console.log('Extracted projects:', parsedData.projects);
+    console.log('Extracted skills:', parsedData.skills);
+    
     // Post-process and validate extracted data
     validateAndEnhanceData(parsedData, cleanText);
     
+    console.log('Final parsed data:', parsedData);
     return parsedData;
 }
 
@@ -3624,6 +3863,15 @@ function extractPersonalInfo(doc, text) {
         }
     }
     
+    // If no name found, try to extract from the very first line
+    if (!personal.name) {
+        const firstLine = text.split('\n')[0];
+        const nameMatch = firstLine.match(/^([A-Z][a-z]+ [A-Z][a-z]+)/);
+        if (nameMatch) {
+            personal.name = nameMatch[1].trim();
+        }
+    }
+    
     // Email extraction - look for "Email:" pattern
     const emailPatterns = [
         /Email[:\-\s]+([A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,})/i,
@@ -3639,11 +3887,22 @@ function extractPersonalInfo(doc, text) {
         }
     }
     
-    // Phone extraction
+    // If no email found, try to extract from the header line
+    if (!personal.email) {
+        const headerLine = text.split('\n')[0];
+        const emailMatch = headerLine.match(/Email[:\-\s]+([A-Z][a-z]+ [A-Z][a-z]+)/i);
+        if (emailMatch) {
+            personal.email = emailMatch[1].trim();
+        }
+    }
+    
+    // Phone extraction - improved patterns
     const phonePatterns = [
         /(\+\d{1,3}[- ]?)?\d{10,}/,
         /Phone[:\-\s]+([\d\-\+\(\)\s]+)/i,
-        /Tel[:\-\s]+([\d\-\+\(\)\s]+)/i
+        /Tel[:\-\s]+([\d\-\+\(\)\s]+)/i,
+        /Mobile[:\-\s]+([\d\-\+\(\)\s]+)/i,
+        /Contact[:\-\s]+([\d\-\+\(\)\s]+)/i
     ];
     
     for (const pattern of phonePatterns) {
@@ -3654,13 +3913,27 @@ function extractPersonalInfo(doc, text) {
         }
     }
     
-    // Location extraction
+    // If no phone found, try to extract from the beginning of the document
+    if (!personal.phone) {
+        const firstLines = text.split('\n').slice(0, 10);
+        for (const line of firstLines) {
+            const phoneMatch = line.match(/(\+\d{1,3}[- ]?)?\d{10,}/);
+            if (phoneMatch) {
+                personal.phone = phoneMatch[0].trim();
+                break;
+            }
+        }
+    }
+    
+    // Location extraction - improved patterns
     const locationPatterns = [
         /Location[:\-\s]+([A-Za-z0-9, .]+)/i,
         /Address[:\-\s]+([A-Za-z0-9, .]+)/i,
         /([A-Z][a-z]+, [A-Z]{2})/,
         /([A-Z][a-z]+ [A-Z][a-z]+)/m,
-        /([A-Z][a-z]+)/m // For single word locations like "Islamabad"
+        /([A-Z][a-z]+)/m, // For single word locations like "Islamabad"
+        /([A-Z][a-z]+,\s*[A-Z][a-z]+)/, // For "City, Country" format
+        /([A-Z][a-z]+\s+[A-Z][a-z]+)/ // For "City Country" format
     ];
     
     for (const pattern of locationPatterns) {
@@ -3668,6 +3941,18 @@ function extractPersonalInfo(doc, text) {
         if (match && match[1]) {
             personal.location = match[1].trim();
             break;
+        }
+    }
+    
+    // If no location found, try to extract from the beginning of the document
+    if (!personal.location) {
+        const firstLines = text.split('\n').slice(0, 5);
+        for (const line of firstLines) {
+            const locationMatch = line.match(/([A-Z][a-z]+(?:,\s*[A-Z][a-z]+)?)/);
+            if (locationMatch && locationMatch[1].length > 3) {
+                personal.location = locationMatch[1].trim();
+                break;
+            }
         }
     }
     
@@ -3688,17 +3973,35 @@ function extractPersonalInfo(doc, text) {
         }
     }
     
-    // Summary extraction
+    // Summary extraction - improved patterns
     const summaryPatterns = [
         /(Summary|Profile|About)[:\-\s]+([\s\S]{30,400})/i,
-        /(Objective)[:\-\s]+([\s\S]{30,400})/i
+        /(Objective)[:\-\s]+([\s\S]{30,400})/i,
+        /(Professional Summary)[:\-\s]+([\s\S]{30,400})/i,
+        /(Career Objective)[:\-\s]+([\s\S]{30,400})/i
     ];
     
     for (const pattern of summaryPatterns) {
         const match = text.match(pattern);
         if (match && match[2]) {
-            personal.summary = match[2].split('\n')[0].trim();
+            // Clean up the summary text
+            let summary = match[2].split('\n')[0].trim();
+            // Remove any trailing punctuation or extra spaces
+            summary = summary.replace(/[^\w\s.,!?-]+$/, '').trim();
+            personal.summary = summary;
             break;
+        }
+    }
+    
+    // If no summary found, try to extract from the beginning of the document
+    if (!personal.summary) {
+        const firstParagraph = text.split('\n\n')[0];
+        if (firstParagraph && firstParagraph.length > 50 && firstParagraph.length < 300) {
+            // Check if it looks like a summary (contains keywords like "experienced", "passionate", etc.)
+            const summaryKeywords = /(experienced|passionate|dedicated|skilled|professional|developer|engineer|specialist)/i;
+            if (summaryKeywords.test(firstParagraph)) {
+                personal.summary = firstParagraph.trim();
+            }
         }
     }
     
@@ -3770,10 +4073,37 @@ function extractExperience(doc, text) {
     if (experience.length === 0) {
         const alternativePatterns = [
             /([A-Za-z\s]+)\|\s*([A-Za-z\s]+),\s*([A-Za-z\s]+)/g,
-            /([A-Za-z\s]+Engineer[^|]*)\|\s*([A-Za-z\s]+)/g
+            /([A-Za-z\s]+Engineer[^|]*)\|\s*([A-Za-z\s]+)/g,
+            /([A-Za-z\s]+Developer[^|]*)\|\s*([A-Za-z\s]+)/g,
+            /([A-Za-z\s]+Manager[^|]*)\|\s*([A-Za-z\s]+)/g
         ];
         
         alternativePatterns.forEach(pattern => {
+            const matches = text.matchAll(pattern);
+            for (const match of matches) {
+                if (match[1] && match[2]) {
+                    experience.push({
+                        title: match[1].trim(),
+                        company: match[2].trim(),
+                        startDate: '',
+                        endDate: '',
+                        description: ''
+                    });
+                }
+            }
+        });
+    }
+    
+    // If still no experience found, try to extract from the entire text
+    if (experience.length === 0) {
+        // Look for job patterns in the entire text
+        const jobPatterns = [
+            /([A-Za-z\s]+Engineer)\s*[|@]\s*([A-Za-z\s]+)/gi,
+            /([A-Za-z\s]+Developer)\s*[|@]\s*([A-Za-z\s]+)/gi,
+            /([A-Za-z\s]+Manager)\s*[|@]\s*([A-Za-z\s]+)/gi
+        ];
+        
+        jobPatterns.forEach(pattern => {
             const matches = text.matchAll(pattern);
             for (const match of matches) {
                 if (match[1] && match[2]) {
@@ -3824,10 +4154,45 @@ function parseJobBlock(block) {
         }
     }
     
-    // Extract description - look for bullet points
+    // Extract description - look for bullet points and other patterns
     const descMatch = block.match(/(?:•|\*|\-)\s*([^\n]+)/g);
     if (descMatch) {
         job.description = descMatch.map(d => d.replace(/^[•\*\-]\s*/, '')).join('\n');
+    } else {
+        // Look for description after job title/company
+        const descAfterJob = block.match(/(?:[A-Za-z\s]+\|[A-Za-z\s]+,\s*[A-Za-z\s]+)\s*([\s\S]+?)(?=\n\n|\n[A-Z]|$)/);
+        if (descAfterJob && descAfterJob[1].trim().length > 10) {
+            job.description = descAfterJob[1].trim();
+        }
+        
+        // Look for description patterns like "Responsible for..." or "Developed..."
+        const responsibilityMatch = block.match(/(?:Responsible for|Developed|Created|Implemented|Managed|Led|Designed|Built|Maintained|Optimized|Improved)[^•\n]*/gi);
+        if (responsibilityMatch) {
+            job.description = responsibilityMatch.join('\n');
+        }
+        
+        // Look for any text after the job title that looks like a description
+        const anyDescMatch = block.match(/(?:[A-Za-z\s]+\|[A-Za-z\s]+,\s*[A-Za-z\s]+)\s*([\s\S]+?)(?=\nTechnologies?|$)/);
+        if (anyDescMatch && anyDescMatch[1].trim().length > 20) {
+            job.description = anyDescMatch[1].trim();
+        }
+        
+        // Look for sentences that start with action verbs
+        const actionVerbsMatch = block.match(/(?:Developed|Created|Built|Implemented|Designed|Managed|Led|Optimized|Improved|Maintained|Enhanced|Streamlined|Automated|Integrated|Deployed|Configured|Troubleshot|Resolved|Collaborated|Coordinated|Facilitated|Mentored|Trained|Documented|Analyzed|Researched|Evaluated|Planned|Organized|Supervised|Monitored)[^•\n]*/gi);
+        if (actionVerbsMatch) {
+            job.description = actionVerbsMatch.join('\n');
+        }
+    }
+    
+    // If still no description, try to extract all text after the job info until Technologies
+    if (!job.description) {
+        const fullDescMatch = block.match(/(?:[A-Za-z\s]+\|[A-Za-z\s]+,\s*[A-Za-z\s]+)\s*([\s\S]+?)(?=\nTechnologies?|$)/);
+        if (fullDescMatch && fullDescMatch[1].trim().length > 10) {
+            // Clean up the description by removing extra whitespace and newlines
+            let desc = fullDescMatch[1].trim();
+            desc = desc.replace(/\n+/g, '\n').replace(/\s+/g, ' ');
+            job.description = desc;
+        }
     }
     
     // Extract technologies if mentioned
@@ -3955,6 +4320,23 @@ function extractSkills(doc, text) {
         skills.push(...skillList);
     }
     
+    // If no skills found in CORE SKILLS section, try alternative patterns
+    if (skills.length === 0) {
+        // Look for skills in the entire text
+        const skillPatterns = [
+            /(JavaScript|Python|Java|React|Node|Angular|Vue|SQL|MongoDB|AWS|Docker|Kubernetes|Git|HTML|CSS|PHP|C#|C\+\+|Ruby|Go|Rust|Swift|Kotlin|TypeScript|Django|Flask|Express|Spring|Laravel|WordPress|Shopify|SAP|Salesforce|Tableau|PowerBI|Excel|Photoshop|Illustrator|Figma|Sketch|Jira|Confluence|Slack|Zoom|Teams|PostgreSQL|VS-Code|Postman|Bootstrap|Tailwind|Rapid|API|Firebase|Android|MERN|REST|Sequelize|ORM|JWT|Authentication|CRUD|Formic|Yup|React|Routers|Props|State|Effect|Hooks|Express|APIs|Relationships|Operations|Models|Token|Security)/gi
+        ];
+        
+        skillPatterns.forEach(pattern => {
+            const matches = text.matchAll(pattern);
+            for (const match of matches) {
+                if (match[0] && match[0].length > 2) {
+                    skills.push(match[0]);
+                }
+            }
+        });
+    }
+    
     // Extract technical skills using NLP
     const technicalTerms = doc.match('(JavaScript|Python|Java|React|Node|Angular|Vue|SQL|MongoDB|AWS|Docker|Kubernetes|Git|HTML|CSS|PHP|C#|C\+\+|Ruby|Go|Rust|Swift|Kotlin|TypeScript|Django|Flask|Express|Spring|Laravel|WordPress|Shopify|SAP|Salesforce|Tableau|PowerBI|Excel|Photoshop|Illustrator|Figma|Sketch|Jira|Confluence|Slack|Zoom|Teams|PostgreSQL|VS-Code|Postman|Bootstrap|Tailwind|Rapid|API|Firebase|Android|Java|MERN|MongoDB|Express|React|Node|REST|API|Sequelize|ORM|JWT|Authentication|CRUD|MERN|STACK|Knowledge|Stream|FRONT-END|Formic|Yup|React|Routers|Props|State|Effect|Hooks|BACK-END|Node|Express|PostgreSQL|REST|APIs|Sequelize|ORM|Relationships|CRUD|Operations|User|Post|Follower|Following|Models|Authentication|JWT|Token|Security)').out('array');
     skills.push(...technicalTerms);
@@ -3964,18 +4346,25 @@ function extractSkills(doc, text) {
 
 function extractProjects(doc, text) {
     const projects = [];
+    console.log('Extracting projects from text...');
+    
     const projectSections = text.split(/(?:PROJECTS|PORTFOLIO|WORKS)/i);
     
     if (projectSections.length > 1) {
         const projText = projectSections[1];
+        console.log('Found PROJECTS section:', projText.substring(0, 200) + '...');
         
         // Split by project titles - look for patterns like "Digital Student Diary (FYP)"
-        const projBlocks = projText.split(/(?=\n[A-Z][A-Za-z\s]+(?:\([A-Z]+\))?|\n•|\n\*)/);
+        const projBlocks = projText.split(/(?=\n[A-Z][A-Za-z\s]+(?:\([A-Z]+\))?|\n[A-Z][A-Za-z\s]+\s*\|\s*SOURCE-CODE|\n•|\n\*)/);
         
-        projBlocks.forEach(block => {
+        console.log('Found', projBlocks.length, 'project blocks');
+        
+        projBlocks.forEach((block, index) => {
             if (block.trim().length > 30) {
+                console.log(`Processing project block ${index}:`, block.substring(0, 100) + '...');
                 const project = parseProjectBlock(block);
                 if (project.title) {
+                    console.log('Extracted project:', project);
                     projects.push(project);
                 }
             }
@@ -4008,21 +4397,66 @@ function extractProjects(doc, text) {
 
 function parseProjectBlock(block) {
     const project = {};
+    console.log('Parsing project block:', block.substring(0, 100) + '...');
     
-    // Extract project title - look for patterns like "Digital Student Diary (FYP)"
+    // Extract project title - look for patterns like "Digital Student Diary (FYP)" or "Email App: Gmail Clone | SOURCE-CODE"
     const titleMatch = block.match(/^([A-Z][A-Za-z\s]+(?:\([A-Z]+\))?)/);
     if (titleMatch) {
         project.title = titleMatch[1].trim();
+        console.log('Found title with pattern 1:', project.title);
     } else {
-        // Fallback pattern
-        const fallbackTitleMatch = block.match(/^([A-Z][A-Za-z\s]+):/);
-        if (fallbackTitleMatch) project.title = fallbackTitleMatch[1].trim();
+        // Look for patterns like "Email App: Gmail Clone | SOURCE-CODE"
+        const sourceCodeMatch = block.match(/^([A-Z][A-Za-z\s]+:\s*[A-Z][A-Za-z\s]+)/);
+        if (sourceCodeMatch) {
+            project.title = sourceCodeMatch[1].trim();
+            console.log('Found title with pattern 2:', project.title);
+        } else {
+            // Fallback pattern
+            const fallbackTitleMatch = block.match(/^([A-Z][A-Za-z\s]+):/);
+            if (fallbackTitleMatch) {
+                project.title = fallbackTitleMatch[1].trim();
+                console.log('Found title with fallback pattern:', project.title);
+            }
+        }
     }
     
-    // Extract description - look for bullet points
+    // Extract description - look for bullet points and other patterns
     const descMatch = block.match(/(?:•|\*|\-)\s*([^\n]+)/g);
     if (descMatch) {
         project.description = descMatch.map(d => d.replace(/^[•\*\-]\s*/, '')).join('\n');
+        console.log('Found description with bullet points:', project.description);
+    } else {
+        // Look for description after project title
+        const descAfterTitle = block.match(/(?:[A-Z][A-Za-z\s]+(?:\([A-Z]+\))?)\s*([\s\S]+?)(?=\nTechnologies?|$)/);
+        if (descAfterTitle && descAfterTitle[1].trim().length > 10) {
+            project.description = descAfterTitle[1].trim();
+            console.log('Found description after title:', project.description);
+        }
+        
+        // Look for description patterns like "Developed..." or "Created..."
+        const developmentMatch = block.match(/(?:Developed|Created|Built|Implemented|Designed|Managed|Led|Optimized|Improved|Enhanced|Streamlined|Automated|Integrated|Deployed|Configured|Troubleshot|Resolved|Collaborated|Coordinated|Facilitated|Mentored|Trained|Documented|Analyzed|Researched|Evaluated|Planned|Organized|Supervised|Monitored)[^•\n]*/gi);
+        if (developmentMatch) {
+            project.description = developmentMatch.join('\n');
+            console.log('Found description with action verbs:', project.description);
+        }
+        
+        // Look for any text after the project title that looks like a description
+        const anyDescMatch = block.match(/(?:[A-Z][A-Za-z\s]+(?:\([A-Z]+\))?)\s*([\s\S]+?)(?=\n[A-Z]|$)/);
+        if (anyDescMatch && anyDescMatch[1].trim().length > 20) {
+            project.description = anyDescMatch[1].trim();
+            console.log('Found description with any text pattern:', project.description);
+        }
+    }
+    
+    // If still no description, try to extract all text after the title until Technologies
+    if (!project.description) {
+        const fullDescMatch = block.match(/(?:[A-Z][A-Za-z\s]+(?:\([A-Z]+\))?)\s*([\s\S]+?)(?=\nTechnologies?|$)/);
+        if (fullDescMatch && fullDescMatch[1].trim().length > 10) {
+            // Clean up the description by removing extra whitespace and newlines
+            let desc = fullDescMatch[1].trim();
+            desc = desc.replace(/\n+/g, '\n').replace(/\s+/g, ' ');
+            project.description = desc;
+        }
     }
     
     // Extract technologies
@@ -4136,6 +4570,17 @@ function showExtractedDataPreview(data) {
 }
 
 function applyExtractedDataToForm(data) {
+    // Helper function to find section by heading text
+    function findSectionByHeading(headingText) {
+        const headings = document.querySelectorAll('h3, h4, h5');
+        for (const heading of headings) {
+            if (heading.textContent.includes(headingText)) {
+                return heading.closest('.mb-4');
+            }
+        }
+        return null;
+    }
+    
     // Apply personal information
     if (data.personal) {
         if (data.personal.name) document.getElementById('name').value = data.personal.name;
@@ -4152,145 +4597,195 @@ function applyExtractedDataToForm(data) {
     
     // Apply skills with automatic section opening
     if (data.skills && data.skills.length > 0) {
-        // Ensure skills section is open
-        const skillsSection = document.querySelector('[data-section="skills"]');
+        // Scroll to skills section
+        const skillsSection = findSectionByHeading('Core Skills');
         if (skillsSection) {
-            const skillsCollapse = skillsSection.querySelector('.collapse');
-            if (skillsCollapse && !skillsCollapse.classList.contains('show')) {
-                const bsCollapse = new bootstrap.Collapse(skillsCollapse, { show: true });
-            }
+            skillsSection.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            // Add highlight effect
+            skillsSection.style.transition = 'all 0.3s ease';
+            skillsSection.style.backgroundColor = '#e8f5e8';
+            setTimeout(() => {
+                skillsSection.style.backgroundColor = '';
+            }, 2000);
         }
         
         // Clear existing skills and add new ones
-        const skillsContainer = document.getElementById('skillsContainer');
-        if (skillsContainer) {
-            skillsContainer.innerHTML = '';
-        }
-        
+        resumeData.skills = [];
         data.skills.forEach(skill => {
             if (skill && skill.trim()) {
-                addSkillTag(skill.trim());
+                resumeData.skills.push(skill.trim());
             }
         });
+        
+        // Update skills display
+        updateSkillsDisplay();
     }
     
     // Apply experience with automatic section opening
     if (data.experience && data.experience.length > 0) {
-        // Ensure experience section is open
-        const experienceSection = document.querySelector('[data-section="experience"]');
+        // Scroll to experience section
+        const experienceSection = findSectionByHeading('Work Experience');
         if (experienceSection) {
-            const experienceCollapse = experienceSection.querySelector('.collapse');
-            if (experienceCollapse && !experienceCollapse.classList.contains('show')) {
-                const bsCollapse = new bootstrap.Collapse(experienceCollapse, { show: true });
-            }
+            experienceSection.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            // Add highlight effect
+            experienceSection.style.transition = 'all 0.3s ease';
+            experienceSection.style.backgroundColor = '#e8f5e8';
+            setTimeout(() => {
+                experienceSection.style.backgroundColor = '';
+            }, 2000);
         }
         
         // Clear existing experience and add new ones
         const experienceContainer = document.getElementById('experienceContainer');
         if (experienceContainer) {
             experienceContainer.innerHTML = '';
-            addExperienceEntry(); // Add first entry
         }
         
+        // Clear resumeData experience array
+        resumeData.experience = [];
+        
         data.experience.forEach((exp, index) => {
-            if (index === 0) {
-                fillExperienceEntry(0, exp);
-            } else {
-                addExperienceEntry();
-                setTimeout(() => {
-                    fillExperienceEntry(index, exp);
-                }, 200);
-            }
+            // Add to resumeData
+            resumeData.experience.push({
+                companyname: exp.company || '',
+                position: exp.title || '',
+                startdate: exp.startDate || '',
+                enddate: exp.endDate || '',
+                description: exp.description || ''
+            });
+            
+            // Add to DOM
+            addExperience({
+                companyname: exp.company || '',
+                position: exp.title || '',
+                startdate: exp.startDate || '',
+                enddate: exp.endDate || '',
+                description: exp.description || ''
+            });
         });
     }
     
     // Apply education with automatic section opening
     if (data.education && data.education.length > 0) {
-        // Ensure education section is open
-        const educationSection = document.querySelector('[data-section="education"]');
+        // Scroll to education section
+        const educationSection = findSectionByHeading('Education');
         if (educationSection) {
-            const educationCollapse = educationSection.querySelector('.collapse');
-            if (educationCollapse && !educationCollapse.classList.contains('show')) {
-                const bsCollapse = new bootstrap.Collapse(educationCollapse, { show: true });
-            }
+            educationSection.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            // Add highlight effect
+            educationSection.style.transition = 'all 0.3s ease';
+            educationSection.style.backgroundColor = '#e8f5e8';
+            setTimeout(() => {
+                educationSection.style.backgroundColor = '';
+            }, 2000);
         }
         
         // Clear existing education and add new ones
         const educationContainer = document.getElementById('educationContainer');
         if (educationContainer) {
             educationContainer.innerHTML = '';
-            addEducationEntry(); // Add first entry
         }
         
+        // Clear resumeData education array
+        resumeData.education = [];
+        
         data.education.forEach((edu, index) => {
-            if (index === 0) {
-                fillEducationEntry(0, edu);
-            } else {
-                addEducationEntry();
-                setTimeout(() => {
-                    fillEducationEntry(index, edu);
-                }, 200);
-            }
+            // Add to resumeData
+            resumeData.education.push({
+                institution: edu.university || '',
+                degree: edu.degree || '',
+                field: edu.field || '',
+                startdate: edu.startDate || '',
+                enddate: edu.endDate || ''
+            });
+            
+            // Add to DOM
+            addEducation({
+                institution: edu.university || '',
+                degree: edu.degree || '',
+                field: edu.field || '',
+                startdate: edu.startDate || '',
+                enddate: edu.endDate || ''
+            });
         });
     }
     
     // Apply projects with automatic section opening
     if (data.projects && data.projects.length > 0) {
-        // Ensure projects section is open
-        const projectsSection = document.querySelector('[data-section="projects"]');
+        // Scroll to projects section
+        const projectsSection = findSectionByHeading('Projects');
         if (projectsSection) {
-            const projectsCollapse = projectsSection.querySelector('.collapse');
-            if (projectsCollapse && !projectsCollapse.classList.contains('show')) {
-                const bsCollapse = new bootstrap.Collapse(projectsCollapse, { show: true });
-            }
+            projectsSection.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            // Add highlight effect
+            projectsSection.style.transition = 'all 0.3s ease';
+            projectsSection.style.backgroundColor = '#e8f5e8';
+            setTimeout(() => {
+                projectsSection.style.backgroundColor = '';
+            }, 2000);
         }
         
         // Clear existing projects and add new ones
         const projectsContainer = document.getElementById('projectsContainer');
         if (projectsContainer) {
             projectsContainer.innerHTML = '';
-            addProjectEntry(); // Add first entry
         }
         
+        // Clear resumeData projects array
+        resumeData.projects = [];
+        
         data.projects.forEach((proj, index) => {
-            if (index === 0) {
-                fillProjectEntry(0, proj);
-            } else {
-                addProjectEntry();
-                setTimeout(() => {
-                    fillProjectEntry(index, proj);
-                }, 200);
-            }
+            // Add to resumeData
+            resumeData.projects.push({
+                title: proj.title || '',
+                description: proj.description || '',
+                technologies: proj.technologies || ''
+            });
+            
+            // Add to DOM
+            addProject({
+                title: proj.title || '',
+                description: proj.description || '',
+                technologies: proj.technologies || ''
+            });
         });
     }
     
     // Apply certifications with automatic section opening
     if (data.certifications && data.certifications.length > 0) {
-        // Ensure certifications section is open
-        const certificationsSection = document.querySelector('[data-section="certifications"]');
+        // Scroll to certifications section
+        const certificationsSection = findSectionByHeading('Courses & Certifications');
         if (certificationsSection) {
-            const certificationsCollapse = certificationsSection.querySelector('.collapse');
-            if (certificationsCollapse && !certificationsCollapse.classList.contains('show')) {
-                const bsCollapse = new bootstrap.Collapse(certificationsCollapse, { show: true });
-            }
+            certificationsSection.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            // Add highlight effect
+            certificationsSection.style.transition = 'all 0.3s ease';
+            certificationsSection.style.backgroundColor = '#e8f5e8';
+            setTimeout(() => {
+                certificationsSection.style.backgroundColor = '';
+            }, 2000);
         }
         
         // Clear existing certifications and add new ones
         const certificationsContainer = document.getElementById('certificationsContainer');
         if (certificationsContainer) {
             certificationsContainer.innerHTML = '';
-            addCertificationEntry(); // Add first entry
         }
         
+        // Clear resumeData certifications array
+        resumeData.certifications = [];
+        
         data.certifications.forEach((cert, index) => {
-            if (index === 0) {
-                fillCertificationEntry(0, cert);
-            } else {
-                addCertificationEntry();
-                setTimeout(() => {
-                    fillCertificationEntry(index, cert);
-                }, 200);
-            }
+            // Add to resumeData
+            resumeData.certifications.push({
+                name: cert.name || '',
+                issuer: cert.issuer || '',
+                date: cert.date || ''
+            });
+            
+            // Add to DOM
+            addCertification({
+                name: cert.name || '',
+                issuer: cert.issuer || '',
+                date: cert.date || ''
+            });
         });
     }
     
@@ -4298,55 +4793,79 @@ function applyExtractedDataToForm(data) {
     setTimeout(() => {
         updatePreview();
         saveResumeData();
-        showNotification('Resume data applied successfully! All sections have been automatically opened and filled.', 'success');
+        
+        // Create success message showing what was filled
+        const filledSections = [];
+        if (data.personal) filledSections.push('Personal Information');
+        if (data.skills && data.skills.length > 0) filledSections.push('Skills');
+        if (data.experience && data.experience.length > 0) filledSections.push('Experience');
+        if (data.education && data.education.length > 0) filledSections.push('Education');
+        if (data.projects && data.projects.length > 0) filledSections.push('Projects');
+        if (data.certifications && data.certifications.length > 0) filledSections.push('Certifications');
+        
+        const message = `Resume data applied successfully! Filled sections: ${filledSections.join(', ')}. All sections have been automatically scrolled to and highlighted.`;
+        showNotification(message, 'success');
     }, 500);
 }
 
 function fillExperienceEntry(index, exp) {
     const container = document.getElementById('experienceContainer');
-    const entries = container.querySelectorAll('.experience-entry');
+    const entries = container.querySelectorAll('.experience-item');
     if (entries[index]) {
         const entry = entries[index];
-        if (exp.title) entry.querySelector('[name="jobTitle"]').value = exp.title;
-        if (exp.company) entry.querySelector('[name="company"]').value = exp.company;
-        if (exp.startDate) entry.querySelector('[name="startDate"]').value = exp.startDate;
-        if (exp.endDate) entry.querySelector('[name="endDate"]').value = exp.endDate;
-        if (exp.description) entry.querySelector('[name="description"]').value = exp.description;
+        const inputs = entry.querySelectorAll('input, textarea');
+        
+        // Map the data to the correct form fields
+        if (exp.company) inputs[0].value = exp.company; // Company Name
+        if (exp.title) inputs[1].value = exp.title; // Position
+        if (exp.startDate) inputs[2].value = exp.startDate; // Start Date
+        if (exp.endDate) inputs[3].value = exp.endDate; // End Date
+        if (exp.description) inputs[4].value = exp.description; // Description
     }
 }
 
 function fillEducationEntry(index, edu) {
     const container = document.getElementById('educationContainer');
-    const entries = container.querySelectorAll('.education-entry');
+    const entries = container.querySelectorAll('.education-item');
     if (entries[index]) {
         const entry = entries[index];
-        if (edu.degree) entry.querySelector('[name="degree"]').value = edu.degree;
-        if (edu.field) entry.querySelector('[name="field"]').value = edu.field;
-        if (edu.university) entry.querySelector('[name="university"]').value = edu.university;
-        if (edu.startDate) entry.querySelector('[name="startDate"]').value = edu.startDate;
-        if (edu.endDate) entry.querySelector('[name="endDate"]').value = edu.endDate;
+        const inputs = entry.querySelectorAll('input');
+        
+        // Map the data to the correct form fields
+        if (edu.university) inputs[0].value = edu.university; // Institution
+        if (edu.degree) inputs[1].value = edu.degree; // Degree
+        if (edu.startDate) inputs[2].value = edu.startDate; // Start Date
+        if (edu.endDate) inputs[3].value = edu.endDate; // End Date
     }
 }
 
 function fillProjectEntry(index, proj) {
     const container = document.getElementById('projectsContainer');
-    const entries = container.querySelectorAll('.project-entry');
+    const entries = container.querySelectorAll('.project-item');
     if (entries[index]) {
         const entry = entries[index];
-        if (proj.title) entry.querySelector('[name="projectTitle"]').value = proj.title;
-        if (proj.description) entry.querySelector('[name="description"]').value = proj.description;
-        if (proj.technologies) entry.querySelector('[name="technologies"]').value = proj.technologies;
+        const inputs = entry.querySelectorAll('input, textarea');
+        
+        // Map the data to the correct form fields
+        if (proj.title) inputs[0].value = proj.title; // Project Title
+        if (proj.link) inputs[1].value = proj.link; // Project URL
+        if (proj.description) inputs[2].value = proj.description; // Project Description
     }
 }
 
 function fillCertificationEntry(index, cert) {
     const container = document.getElementById('certificationsContainer');
-    const entries = container.querySelectorAll('.certification-entry');
+    const entries = container.querySelectorAll('.certification-item');
     if (entries[index]) {
         const entry = entries[index];
-        if (cert.name) entry.querySelector('[name="certificationName"]').value = cert.name;
-        if (cert.issuer) entry.querySelector('[name="issuer"]').value = cert.issuer;
-        if (cert.date) entry.querySelector('[name="date"]').value = cert.date;
+        const inputs = entry.querySelectorAll('input');
+        
+        // Map the data to the correct form fields
+        if (cert.name) inputs[0].value = cert.name; // Certification Title
+        if (cert.issuer) inputs[1].value = cert.issuer; // Issuing Organization
+        if (cert.date) inputs[2].value = cert.date; // Date
+        if (cert.credentialId) inputs[3].value = cert.credentialId; // Credential ID
+        if (cert.url) inputs[4].value = cert.url; // Credential URL
     }
 }
 
@@ -4432,3 +4951,22 @@ function extractExperienceAlternative(text) {
     
     return experience;
 }
+
+// Test function for SweetAlert2 (can be called from console)
+window.testSweetAlert = () => {
+    console.log('Testing SweetAlert2...');
+    if (typeof Swal === 'undefined') {
+        console.error('SweetAlert2 not loaded');
+        alert('SweetAlert2 is not loaded');
+        return;
+    }
+    
+    SweetAlert.resumeReset().then((result) => {
+        console.log('Test result:', result);
+        if (result.isConfirmed) {
+            console.log('Test confirmed');
+        }
+    }).catch((error) => {
+        console.error('Test error:', error);
+    });
+};

@@ -338,14 +338,14 @@
                                     </p>
                                     <div class="row g-3">
                                         <div class="col-md-6">
-                                            <label for="resumeFile" class="btn btn-outline-primary w-100" onclick="document.getElementById('resumeFile').click()">
+                                            <label for="resumeFile" class="btn btn-outline-primary w-100" style="min-height: 44px; touch-action: manipulation;">
                                                 <i class="fas fa-upload me-2"></i>Choose Resume File
                                             </label>
-                                            <input type="file" id="resumeFile" accept=".doc,.docx,.pdf" style="display: none;">
+                                            <input type="file" id="resumeFile" accept=".doc,.docx,.pdf" style="display: none;" capture="environment">
                                             <div class="form-text">Supported: .doc, .docx, .pdf (max 10MB)</div>
                                         </div>
                                         <div class="col-md-6">
-                                            <button type="button" id="extractDataBtn" class="btn btn-primary w-100" disabled>
+                                            <button type="button" id="extractDataBtn" class="btn btn-primary w-100" disabled style="min-height: 44px; touch-action: manipulation;">
                                                 <i class="fas fa-magic me-2"></i>Instant Extract & Fill
                                             </button>
                                         </div>

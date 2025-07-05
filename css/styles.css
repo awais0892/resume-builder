@@ -3263,23 +3263,30 @@ p.bullet-point:before {
   color: #e0e6f7;
   box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
   border: 1px solid #2e3650;
-  max-width: 340px !important;
-  min-width: 260px;
+  max-width: 90vw !important;
+  min-width: 280px;
   padding: 1.5rem 1.2rem 1.2rem 1.2rem;
+  z-index: 999999 !important;
+  position: relative !important;
 }
+
 .swal2-title.swal2-custom-title {
   color: #7f9cf5;
   font-family: 'Orbitron', 'Montserrat', Arial, sans-serif;
   font-size: 1.25rem;
   letter-spacing: 0.04em;
   text-shadow: 0 2px 8px #23294644;
+  margin-bottom: 1rem !important;
 }
+
 .swal2-content.swal2-custom-content,
 .swal2-html-container {
   color: #e0e6f7;
   font-size: 1rem;
   font-family: 'Montserrat', Arial, sans-serif;
+  line-height: 1.5;
 }
+
 .swal2-confirm.swal2-custom-confirm {
   background: linear-gradient(90deg, #7f9cf5 0%, #4f46e5 100%);
   color: #fff;
@@ -3288,12 +3295,16 @@ p.bullet-point:before {
   font-family: 'Montserrat', Arial, sans-serif;
   box-shadow: 0 2px 8px #4f46e555;
   border: none;
-  padding: 0.5rem 1.5rem;
+  padding: 0.75rem 1.5rem;
   transition: background 0.2s;
+  min-height: 44px;
+  font-size: 1rem;
 }
+
 .swal2-confirm.swal2-custom-confirm:hover {
   background: linear-gradient(90deg, #4f46e5 0%, #7f9cf5 100%);
 }
+
 .swal2-cancel.swal2-custom-cancel {
   background: #232946;
   color: #7f9cf5;
@@ -3301,45 +3312,190 @@ p.bullet-point:before {
   font-weight: 600;
   font-family: 'Montserrat', Arial, sans-serif;
   border: 1px solid #7f9cf5;
-  padding: 0.5rem 1.5rem;
+  padding: 0.75rem 1.5rem;
   margin-left: 0.5rem;
   transition: background 0.2s, color 0.2s;
+  min-height: 44px;
+  font-size: 1rem;
 }
+
 .swal2-cancel.swal2-custom-cancel:hover {
   background: #181f2b;
   color: #fff;
 }
+
 .swal2-icon.swal2-warning {
   border-color: #f59e0b !important;
   color: #f59e0b !important;
 }
+
 .swal2-icon.swal2-success {
   border-color: #10b981 !important;
   color: #10b981 !important;
 }
+
 .swal2-icon.swal2-error {
   border-color: #ef4444 !important;
   color: #ef4444 !important;
 }
+
 .swal2-icon.swal2-info {
   border-color: #3b82f6 !important;
   color: #3b82f6 !important;
 }
+
 .swal2-icon.swal2-question {
   border-color: #7f9cf5 !important;
   color: #7f9cf5 !important;
 }
+
 .swal2-actions {
   margin-top: 1.5rem !important;
+  gap: 0.75rem !important;
+  flex-wrap: wrap !important;
 }
+
 .swal2-styled:focus {
   box-shadow: 0 0 0 2px #7f9cf5cc !important;
   outline: none !important;
 }
-@media (max-width: 400px) {
+
+/* Mobile Responsive Styles */
+@media (max-width: 768px) {
   .swal2-popup.swal2-custom-popup {
     max-width: 95vw !important;
     min-width: 0;
-    padding: 1rem 0.5rem;
+    padding: 1.25rem 1rem;
+    margin: 1rem !important;
   }
+  
+  .swal2-title.swal2-custom-title {
+    font-size: 1.1rem;
+    margin-bottom: 0.75rem !important;
+  }
+  
+  .swal2-content.swal2-custom-content,
+  .swal2-html-container {
+    font-size: 0.95rem;
+  }
+  
+  .swal2-confirm.swal2-custom-confirm,
+  .swal2-cancel.swal2-custom-cancel {
+    padding: 0.875rem 1.25rem;
+    min-height: 48px;
+    font-size: 0.95rem;
+    width: 100% !important;
+    margin: 0.25rem 0 !important;
+  }
+  
+  .swal2-actions {
+    flex-direction: column !important;
+    gap: 0.5rem !important;
+    margin-top: 1.25rem !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .swal2-popup.swal2-custom-popup {
+    max-width: 98vw !important;
+    padding: 1rem 0.75rem;
+    margin: 0.5rem !important;
+  }
+  
+  .swal2-title.swal2-custom-title {
+    font-size: 1rem;
+  }
+  
+  .swal2-content.swal2-custom-content,
+  .swal2-html-container {
+    font-size: 0.9rem;
+  }
+  
+  .swal2-confirm.swal2-custom-confirm,
+  .swal2-cancel.swal2-custom-cancel {
+    padding: 1rem 1.5rem;
+    min-height: 52px;
+    font-size: 1rem;
+  }
+}
+
+/* Ensure modal is always visible and clickable */
+.swal2-container {
+  z-index: 999999 !important;
+  padding: 1rem !important;
+}
+
+.swal2-backdrop {
+  z-index: 999998 !important;
+}
+
+/* Touch-friendly improvements */
+.swal2-popup.swal2-custom-popup * {
+  -webkit-tap-highlight-color: transparent;
+}
+
+.swal2-confirm.swal2-custom-confirm:active,
+.swal2-cancel.swal2-custom-cancel:active {
+  transform: scale(0.98);
+  transition: transform 0.1s ease;
+}
+
+/* Mobile-friendly reset button */
+#resetBtn {
+  min-height: 44px !important;
+  min-width: 44px !important;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
+}
+
+#resetBtn:active {
+  transform: scale(0.98);
+  transition: transform 0.1s ease;
+}
+
+/* Ensure buttons are touch-friendly on mobile */
+@media (max-width: 768px) {
+  .btn {
+    min-height: 44px;
+    min-width: 44px;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+  }
+  
+  .btn:active {
+    transform: scale(0.98);
+    transition: transform 0.1s ease;
+  }
+  
+  /* File upload improvements for mobile */
+  label[for="resumeFile"] {
+    min-height: 48px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    font-size: 0.9rem !important;
+  }
+  
+  #extractDataBtn {
+    min-height: 48px !important;
+    font-size: 0.9rem !important;
+  }
+  
+  /* Prevent zoom on input focus on iOS */
+  input[type="file"] {
+    font-size: 16px !important;
+  }
+}
+
+/* File upload button states */
+label[for="resumeFile"].btn-success {
+  background-color: #198754 !important;
+  border-color: #198754 !important;
+  color: white !important;
+}
+
+label[for="resumeFile"].btn-success:hover {
+  background-color: #157347 !important;
+  border-color: #146c43 !important;
 }
