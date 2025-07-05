@@ -11,6 +11,10 @@
     --glow-color: rgba(74, 107, 255, 0.6);
     --neon-blue: #00f3ff;
     --neon-purple: #9d00ff;
+    /* Add more vibrant and consistent color palette */
+    --card-shadow-color: rgba(74, 107, 255, 0.2);
+    --card-hover-transform: scale(1.03);
+    --card-transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
 
 /* Loading Spinner */
@@ -83,8 +87,13 @@
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     line-height: 1.6;
-    color: var(--dark-color);
+    color: #333;
     background-color: var(--light-color);
+    transition: color 0.3s ease;
+}
+
+body.dark-mode {
+    color: #e0e0e0;
 }
 
 /* Highlight Text */
@@ -158,6 +167,11 @@ body {
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
+    transition: color 0.3s ease;
+}
+
+body.dark-mode .stat-item h3 {
+    color: #e0e0e0;
 }
 
 .stat-item small {
@@ -280,6 +294,11 @@ body {
     color: rgba(255, 255, 255, 0.95);
     font-size: 1.25rem;
     margin-bottom: 2rem;
+    transition: color 0.3s ease;
+}
+
+body.dark-mode .hero-section .lead {
+    color: #e0e0e0;
 }
 
 .hero-section h1 {
@@ -331,6 +350,7 @@ body {
     border: 1px solid rgba(255, 255, 255, 0.1);
     color: white;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
 }
 
 .feature-card:hover {
@@ -353,6 +373,11 @@ body {
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
+    transition: color 0.3s ease;
+}
+
+body.dark-mode .feature-card h3 {
+    color: #e0e0e0;
 }
 
 /* Buttons */
@@ -666,14 +691,24 @@ body {
 
 /* Resume Builder Styles */
 .form-panel {
-    background: rgba(255, 255, 255, 0.95);
+    background: linear-gradient(145deg, 
+        rgba(255, 255, 255, 0.9), 
+        rgba(255, 255, 255, 0.7));
     border-radius: 15px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    transition: all 0.3s ease;
+    box-shadow: 
+        0 10px 25px rgba(0, 0, 0, 0.1),
+        0 6px 12px rgba(0, 0, 0, 0.05);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    will-change: transform, box-shadow;
 }
 
 .form-panel:hover {
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+    transform: translateY(-5px);
+    box-shadow: 
+        0 15px 35px rgba(0, 0, 0, 0.15),
+        0 8px 16px rgba(0, 0, 0, 0.1);
 }
 
 .section-title {
@@ -682,6 +717,11 @@ body {
     margin-bottom: 1.5rem;
     padding-bottom: 0.5rem;
     border-bottom: 2px solid var(--primary-color);
+    transition: color 0.3s ease;
+}
+
+body.dark-mode .section-title {
+    color: #e0e0e0;
 }
 
 .form-control {
@@ -2373,38 +2413,67 @@ body {
 
 /* Progress bar styling */
 .progress {
-    height: 12px;
-    border-radius: 6px;
-    background-color: rgba(var(--bs-primary-rgb), 0.2);
+    height: 25px;
+    border-radius: 15px;
+    background-color: rgba(0, 0, 0, 0.05);
+    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
 }
 
 .progress-bar {
-    transition: width 0.5s ease-in-out;
+    transition: width 0.5s ease-in-out, background-color 0.5s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+.progress-bar.bg-warning {
+    background: linear-gradient(135deg, #ff9800 0%, #f44336 100%) !important;
+    color: white;
+}
+
+.progress-bar.bg-info {
+    background: linear-gradient(135deg, #2196f3 0%, #00bcd4 100%) !important;
+    color: white;
+}
+
+.progress-bar.bg-success {
+    background: linear-gradient(135deg, #4caf50 0%, #8bc34a 100%) !important;
+    color: white;
+}
+
+/* Dark Mode Progress Bar */
+body.dark-mode .progress {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+body.dark-mode .progress-bar {
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
 }
 
 /* Template selection styling */
 .template-selection {
-    transition: all 0.3s ease;
-    cursor: pointer;
-    border: 2px solid transparent;
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
     overflow: hidden;
+    border-radius: 15px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 .template-selection:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-}
-
-.template-selection.selected {
-    border-color: var(--bs-primary);
-}
-
-.template-selection img {
-    transition: transform 0.5s ease;
-}
-
-.template-selection:hover img {
     transform: scale(1.05);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+.template-selection .card-img-top {
+    transition: transform 0.3s ease;
+    object-fit: cover;
+    height: 250px;
+}
+
+.template-selection:hover .card-img-top {
+    transform: scale(1.1);
 }
 
 /* ATS Score Card */
@@ -3498,4 +3567,425 @@ label[for="resumeFile"].btn-success {
 label[for="resumeFile"].btn-success:hover {
   background-color: #157347 !important;
   border-color: #146c43 !important;
+}
+
+/* Enhanced Card Animations and Styling */
+:root {
+    /* Add more vibrant and consistent color palette */
+    --card-shadow-color: rgba(74, 107, 255, 0.2);
+    --card-hover-transform: scale(1.03);
+    --card-transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+/* Universal Card Styling */
+.template-card, 
+.feature-card, 
+.testimonial-card, 
+.step-card {
+    position: relative;
+    overflow: hidden;
+    transition: var(--card-transition);
+    border-radius: 15px;
+    box-shadow: 0 4px 6px var(--card-shadow-color), 
+                0 1px 3px var(--card-shadow-color);
+    background: linear-gradient(145deg, 
+        rgba(255, 255, 255, 0.9), 
+        rgba(255, 255, 255, 0.7));
+    backdrop-filter: blur(10px);
+    will-change: transform, box-shadow;
+}
+
+.template-card::before,
+.feature-card::before,
+.testimonial-card::before,
+.step-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(
+        135deg, 
+        rgba(74, 107, 255, 0.1), 
+        rgba(74, 107, 255, 0.05)
+    );
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    z-index: 1;
+}
+
+.template-card:hover,
+.feature-card:hover,
+.testimonial-card:hover,
+.step-card:hover {
+    transform: var(--card-hover-transform);
+    box-shadow: 0 10px 20px var(--card-shadow-color), 
+                0 6px 6px var(--card-shadow-color);
+}
+
+.template-card:hover::before,
+.feature-card:hover::before,
+.testimonial-card:hover::before,
+.step-card:hover::before {
+    opacity: 1;
+}
+
+/* Image Hover Effects */
+.template-card img, 
+.feature-card img, 
+.testimonial-card img {
+    transition: var(--card-transition);
+    transform-origin: center;
+}
+
+.template-card:hover img, 
+.feature-card:hover img, 
+.testimonial-card:hover img {
+    transform: scale(1.05);
+}
+
+/* Consistent Hover Animations */
+@keyframes cardHoverPulse {
+    0% { transform: var(--card-hover-transform) scale(1); }
+    50% { transform: var(--card-hover-transform) scale(1.02); }
+    100% { transform: var(--card-hover-transform) scale(1); }
+}
+
+.template-card:hover,
+.feature-card:hover,
+.testimonial-card:hover,
+.step-card:hover {
+    animation: cardHoverPulse 1s infinite;
+}
+
+/* Enhanced Hover Text Effects */
+.template-info h4,
+.feature-card h3,
+.testimonial-author h5 {
+    transition: color 0.3s ease;
+    position: relative;
+}
+
+.template-card:hover .template-info h4,
+.feature-card:hover h3,
+.testimonial-card:hover .testimonial-author h5 {
+    color: var(--primary-color);
+}
+
+.template-info h4::after,
+.feature-card h3::after,
+.testimonial-author h5::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: var(--primary-color);
+    transition: width 0.3s ease;
+}
+
+.template-card:hover .template-info h4::after,
+.feature-card:hover h3::after,
+.testimonial-card:hover .testimonial-author h5::after {
+    width: 100%;
+}
+
+/* Consistent Image Styling */
+.template-card img, 
+.feature-card img, 
+.testimonial-card img {
+    object-fit: cover;
+    object-position: center;
+    border-radius: 10px;
+    max-height: 250px;
+    width: 100%;
+    transition: var(--card-transition);
+}
+
+/* Overlay Effects */
+.template-overlay,
+.feature-icon {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(74, 107, 255, 0.1);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.template-card:hover .template-overlay,
+.feature-card:hover .feature-icon {
+    opacity: 1;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .template-card, 
+    .feature-card, 
+    .testimonial-card, 
+    .step-card {
+        transform: none !important;
+    }
+    
+    .template-card:hover, 
+    .feature-card:hover, 
+    .testimonial-card:hover, 
+    .step-card:hover {
+        transform: scale(1) !important;
+        animation: none;
+    }
+}
+
+/* Enhanced Dark Mode Styles */
+body.dark-mode {
+    background-color: #121212;
+    color: #e0e0e0;
+}
+
+.dark-mode .navbar {
+    background: linear-gradient(135deg, #1f1f1f 0%, #121212 100%) !important;
+    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.5);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.dark-mode .navbar-brand {
+    color: var(--neon-blue) !important;
+}
+
+.dark-mode .nav-link {
+    color: rgba(255, 255, 255, 0.7) !important;
+}
+
+.dark-mode .hero-section {
+    background: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)), 
+                url('https://images.unsplash.com/photo-1516321497487-e288fb19713f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80') no-repeat center center fixed;
+    background-size: cover;
+}
+
+.dark-mode .feature-card,
+.dark-mode .testimonial-card,
+.dark-mode .template-card {
+    background: linear-gradient(145deg, 
+        rgba(30, 30, 30, 0.9), 
+        rgba(20, 20, 20, 0.7));
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3), 
+                0 1px 3px rgba(0, 0, 0, 0.2);
+    color: #e0e0e0;
+}
+
+.dark-mode .feature-card h3,
+.dark-mode .testimonial-card .testimonial-author h5,
+.dark-mode .template-card .template-info h4 {
+    color: var(--neon-blue);
+}
+
+.dark-mode .feature-card p,
+.dark-mode .testimonial-card .testimonial-content p {
+    color: #b0b0b0;
+}
+
+.dark-mode .btn-primary {
+    background-color: var(--neon-blue);
+    border-color: var(--neon-blue);
+    color: #121212;
+}
+
+.dark-mode .btn-primary:hover {
+    background-color: #00f3ff;
+    border-color: #00f3ff;
+}
+
+.dark-mode .form-control {
+    background-color: #1e1e1e;
+    border-color: #333;
+    color: #e0e0e0;
+}
+
+.dark-mode .form-control:focus {
+    background-color: #252525;
+    border-color: var(--neon-blue);
+    box-shadow: 0 0 0 0.2rem rgba(0, 243, 255, 0.25);
+}
+
+.dark-mode .modal-content {
+    background-color: #1e1e1e;
+    color: #e0e0e0;
+}
+
+.dark-mode .section-title {
+    color: #e0e0e0;
+}
+
+.dark-mode .lead {
+    color: #b0b0b0;
+}
+
+.dark-mode .footer {
+    background-color: #121212;
+    color: #e0e0e0;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.dark-mode .footer a {
+    color: var(--neon-blue);
+}
+
+.dark-mode .footer a:hover {
+    color: #00f3ff;
+}
+
+/* Ensure all pages have consistent dark mode */
+.dark-mode * {
+    scrollbar-color: #333 #121212;
+    scrollbar-width: thin;
+}
+
+.dark-mode ::-webkit-scrollbar {
+    width: 8px;
+    background-color: #121212;
+}
+
+.dark-mode ::-webkit-scrollbar-thumb {
+    background-color: #333;
+    border-radius: 4px;
+}
+
+.dark-mode ::-webkit-scrollbar-thumb:hover {
+    background-color: #444;
+}
+
+/* Dynamic Form Sections Animation */
+#resumeForm > div {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+#resumeForm > div.animate__animated.animate__fadeInUp {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Add Button Styling */
+#addExperience, #addEducation, 
+#addCertification, #addProject, 
+#addSkill {
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+#addExperience:hover, #addEducation:hover, 
+#addCertification:hover, #addProject:hover, 
+#addSkill:hover {
+    transform: scale(1.05);
+}
+
+#addExperience::before, #addEducation::before, 
+#addCertification::before, #addProject::before, 
+#addSkill::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        120deg, 
+        transparent, 
+        rgba(255, 255, 255, 0.3), 
+        transparent
+    );
+    transition: all 0.5s ease;
+}
+
+#addExperience:hover::before, #addEducation:hover::before, 
+#addCertification:hover::before, #addProject:hover::before, 
+#addSkill:hover::before {
+    left: 100%;
+}
+
+/* SweetAlert Custom Styling */
+.resume-builder-alert {
+    border-radius: 15px;
+    padding: 20px;
+}
+
+.resume-builder-alert .alert-title {
+    color: var(--neon-blue);
+    font-weight: 600;
+}
+
+.resume-builder-alert .alert-content {
+    color: #333;
+}
+
+.resume-builder-alert .btn-primary {
+    background-color: var(--neon-blue);
+    border-color: var(--neon-blue);
+    color: white;
+    border-radius: 8px;
+    padding: 10px 20px;
+    margin: 10px;
+}
+
+.resume-builder-alert .btn-secondary {
+    background-color: #6c757d;
+    border-color: #6c757d;
+    color: white;
+    border-radius: 8px;
+    padding: 10px 20px;
+    margin: 10px;
+}
+
+/* Dark Mode Adjustments */
+body.dark-mode .resume-builder-alert {
+    background-color: #1e1e1e !important;
+}
+
+body.dark-mode .resume-builder-alert .alert-title {
+    color: var(--neon-blue);
+}
+
+body.dark-mode .resume-builder-alert .alert-content {
+    color: #e0e0e0;
+}
+
+/* Enhanced Form Input Placeholder Styling */
+::placeholder {
+    font-size: 0.85rem;
+    color: rgba(0, 0, 0, 0.5);
+}
+
+body.dark-mode ::placeholder {
+    color: rgba(255, 255, 255, 0.5);
+}
+
+/* Date Input Styling */
+.date-input-group {
+    display: flex;
+    gap: 10px;
+}
+
+.date-input-group .form-control[type="date"] {
+    font-size: 0.85rem;
+    padding: 8px 12px;
+    height: auto;
+}
+
+/* Skill Input Styling */
+#skillInput {
+    transition: all 0.3s ease;
+}
+
+#skillInput:focus {
+    box-shadow: 0 0 0 0.2rem rgba(0, 243, 255, 0.25);
 }

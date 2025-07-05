@@ -15,31 +15,28 @@
     <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
         <div class="container">
             <a class="navbar-brand" href="../index.html">
-                <i class="fas fa-file-alt me-2"></i>NexGen Resume
+                <i class="fas fa-file-alt me-2"></i>Resume Builder
             </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="../index.html">
-                            <i class="fas fa-home me-1"></i> Home
-                        </a>
+                        <a class="nav-link" href="../index.html">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active" href="builder.html">
-                            <i class="fas fa-tools me-1"></i> Create Resume
-                        </a>
+                        <a class="nav-link active" href="builder.html">Resume Builder</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="templates.html">
-                            <i class="fas fa-layer-group me-1"></i> Templates
-                        </a>
+                        <a class="nav-link" href="templates.html">Templates</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="about.html">
-                            <i class="fas fa-info-circle me-1"></i> About
+                        <a class="nav-link" href="about.html">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link dark-mode-toggle" href="javascript:void(0);">
+                            <i class="fas fa-moon me-2"></i>Dark Mode
                         </a>
                     </li>
                 </ul>
@@ -56,9 +53,6 @@
                     <div class="d-flex justify-content-between align-items-center mb-4">
                         <h2 class="section-title">Create Your Resume</h2>
                         <div>
-                            <button id="themeToggle" class="btn btn-outline-primary me-2">
-                                <i class="fas fa-moon me-2"></i>Dark Mode
-                            </button>
                             <a href="preview.html" class="btn btn-secondary" id="viewResume" style="display: none;">
                                 <i class="fas fa-eye me-2"></i>View Resume
                             </a>
@@ -76,27 +70,27 @@
                             <h3 class="h5 mb-3">Personal Information <span class="text-danger">*</span></h3>
                             <div class="row g-3">
                                 <div class="col-12">
-                                    <input type="text" class="form-control required" id="name" placeholder="Full Name" required>
+                                    <input type="text" class="form-control required" id="name" placeholder="Enter your full name (e.g., John Doe)" required>
                                     <div class="invalid-feedback">Please provide your full name</div>
                                 </div>
                                 <div class="col-12">
-                                    <input type="text" class="form-control required" id="jobTitle" placeholder="Job Title" required>
+                                    <input type="text" class="form-control required" id="jobTitle" placeholder="Your current or target job title (e.g., Software Engineer)" required>
                                     <div class="invalid-feedback">Please provide your job title</div>
                                 </div>
                                 <div class="col-12">
-                                    <input type="email" class="form-control required" id="email" placeholder="Email" required>
+                                    <input type="email" class="form-control required" id="email" placeholder="Professional email address (e.g., john.doe@example.com)" required>
                                     <div class="invalid-feedback">Please provide a valid email address</div>
                                 </div>
                                 <div class="col-12">
-                                    <input type="tel" class="form-control required" id="phone" placeholder="Phone" required>
+                                    <input type="tel" class="form-control required" id="phone" placeholder="Contact number with country code (e.g., +1 (555) 123-4567)" required>
                                     <div class="invalid-feedback">Please provide your phone number</div>
                                 </div>
                                 <div class="col-12">
-                                    <input type="text" class="form-control required" id="location" placeholder="Location" required>
+                                    <input type="text" class="form-control required" id="location" placeholder="City, State/Province, Country (e.g., San Francisco, CA, USA)" required>
                                     <div class="invalid-feedback">Please provide your location</div>
                                 </div>
                                 <div class="col-12">
-                                    <textarea class="form-control required" id="summary" rows="3" placeholder="Professional Summary" required></textarea>
+                                    <textarea class="form-control required" id="summary" rows="3" placeholder="Write a concise professional summary highlighting your key skills, experience, and career objectives (2-3 sentences)" required></textarea>
                                     <div class="invalid-feedback">Please provide a professional summary</div>
                                 </div>
                             </div>
@@ -138,25 +132,25 @@
                                 <div class="col-12">
                                     <div class="input-group">
                                         <span class="input-group-text"><i class="fab fa-github"></i></span>
-                                        <input type="url" class="form-control" id="github" placeholder="GitHub Profile URL">
+                                        <input type="url" class="form-control" id="github" placeholder="Full GitHub profile URL (e.g., https://github.com/username)">
                                     </div>
                                 </div>
                                 <div class="col-12">
                                     <div class="input-group">
                                         <span class="input-group-text"><i class="fab fa-linkedin"></i></span>
-                                        <input type="url" class="form-control" id="linkedin" placeholder="LinkedIn Profile URL">
+                                        <input type="url" class="form-control" id="linkedin" placeholder="Complete LinkedIn profile URL (e.g., https://www.linkedin.com/in/username)">
                                     </div>
                                 </div>
                                 <div class="col-12">
                                     <div class="input-group">
                                         <span class="input-group-text"><i class="fab fa-twitter"></i></span>
-                                        <input type="url" class="form-control" id="twitter" placeholder="Twitter Profile URL">
+                                        <input type="url" class="form-control" id="twitter" placeholder="Full Twitter profile URL (e.g., https://twitter.com/username)">
                                     </div>
                                 </div>
                                 <div class="col-12">
                                     <div class="input-group">
                                         <span class="input-group-text"><i class="fas fa-globe"></i></span>
-                                        <input type="url" class="form-control" id="portfolio" placeholder="Portfolio Website URL">
+                                        <input type="url" class="form-control" id="portfolio" placeholder="Personal website or portfolio URL (e.g., https://www.yourname.com)">
                                     </div>
                                 </div>
                             </div>
@@ -170,7 +164,26 @@
                                     <i class="fas fa-plus me-2"></i>Add Experience
                                 </button>
                             </div>
-                            <div id="experienceContainer"></div>
+                            <div id="experienceContainer">
+                                <!-- Dynamically added experience entries will go here -->
+                                <div class="experience-entry mb-3 card p-3">
+                                    <div class="row g-3">
+                                        <div class="col-12">
+                                            <input type="text" class="form-control required" placeholder="Job Title (e.g., Senior Software Engineer)" required>
+                                        </div>
+                                        <div class="col-12">
+                                            <input type="text" class="form-control required" placeholder="Company Name" required>
+                                        </div>
+                                        <div class="date-input-group mb-3">
+                                            <input type="date" class="form-control" placeholder="Start Date" required>
+                                            <input type="date" class="form-control" placeholder="End Date">
+                                        </div>
+                                        <div class="col-12">
+                                            <textarea class="form-control" rows="3" placeholder="Key responsibilities and achievements (2-3 bullet points)"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                             <div class="text-muted small mt-2">At least one work experience entry is required</div>
                         </div>
 
@@ -182,7 +195,26 @@
                                     <i class="fas fa-plus me-2"></i>Add Education
                                 </button>
                             </div>
-                            <div id="educationContainer"></div>
+                            <div id="educationContainer">
+                                <!-- Dynamically added education entries will go here -->
+                                <div class="education-entry mb-3 card p-3">
+                                    <div class="row g-3">
+                                        <div class="col-12">
+                                            <input type="text" class="form-control required" placeholder="Degree (e.g., Bachelor of Science in Computer Science)" required>
+                                        </div>
+                                        <div class="col-12">
+                                            <input type="text" class="form-control required" placeholder="Institution Name" required>
+                                        </div>
+                                        <div class="date-input-group mb-3">
+                                            <input type="date" class="form-control" placeholder="Start Date" required>
+                                            <input type="date" class="form-control" placeholder="Graduation Date">
+                                        </div>
+                                        <div class="col-12">
+                                            <input type="text" class="form-control" placeholder="Additional Details (GPA, Honors, etc.)">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                             <div class="text-muted small mt-2">At least one education entry is required</div>
                         </div>
 
@@ -201,7 +233,7 @@
                         <div class="mb-4">
                             <h3 class="h5 mb-3">Core Skills <span class="text-danger">*</span></h3>
                             <div class="input-group mb-3">
-                                <input type="text" class="form-control" id="skillInput" placeholder="Add a skill">
+                                <input type="text" class="form-control" id="skillInput" placeholder="Enter a skill (e.g., Python, React, Project Management)" maxlength="30">
                                 <button class="btn btn-primary" type="button" id="addSkill">
                                     <i class="fas fa-plus"></i>
                                 </button>
@@ -227,37 +259,37 @@
                             <div class="scroll-container">
                                 <div class="scroll-wrapper">
                                     <div class="scroll-item">
-                                        <div class="card template-selection">
+                                    <div class="card template-selection">
                                             <img src="https://images.pexels.com/photos/7688336/pexels-photo-7688336.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" class="card-img-top" alt="Modern Template">
-                                            <div class="card-body text-center">
-                                                <h5 class="card-title">Modern</h5>
-                                                <button type="button" class="btn btn-outline-primary btn-sm" data-template="modern">
-                                                    <i class="fas fa-check me-1"></i>Select
-                                                </button>
-                                            </div>
+                                        <div class="card-body text-center">
+                                            <h5 class="card-title">Modern</h5>
+                                            <button type="button" class="btn btn-outline-primary btn-sm" data-template="modern">
+                                                <i class="fas fa-check me-1"></i>Select
+                                            </button>
                                         </div>
                                     </div>
+                                </div>
                                     <div class="scroll-item">
-                                        <div class="card template-selection">
+                                    <div class="card template-selection">
                                             <img src="https://images.pexels.com/photos/7681091/pexels-photo-7681091.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" class="card-img-top" alt="Professional Template">
-                                            <div class="card-body text-center">
-                                                <h5 class="card-title">Professional</h5>
-                                                <button type="button" class="btn btn-outline-primary btn-sm" data-template="professional">
-                                                    <i class="fas fa-check me-1"></i>Select
-                                                </button>
-                                            </div>
+                                        <div class="card-body text-center">
+                                            <h5 class="card-title">Professional</h5>
+                                            <button type="button" class="btn btn-outline-primary btn-sm" data-template="professional">
+                                                <i class="fas fa-check me-1"></i>Select
+                                            </button>
                                         </div>
                                     </div>
+                                </div>
                                     <div class="scroll-item">
-                                        <div class="card template-selection">
+                                    <div class="card template-selection">
                                             <img src="https://images.pexels.com/photos/7681093/pexels-photo-7681093.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" class="card-img-top" alt="Creative Template">
-                                            <div class="card-body text-center">
-                                                <h5 class="card-title">Creative</h5>
-                                                <button type="button" class="btn btn-outline-primary btn-sm" data-template="creative">
-                                                    <i class="fas fa-check me-1"></i>Select
-                                                </button>
-                                            </div>
+                                        <div class="card-body text-center">
+                                            <h5 class="card-title">Creative</h5>
+                                            <button type="button" class="btn btn-outline-primary btn-sm" data-template="creative">
+                                                <i class="fas fa-check me-1"></i>Select
+                                            </button>
                                         </div>
+                                    </div>
                                     </div>
                                     <div class="scroll-item">
                                         <div class="card template-selection">
