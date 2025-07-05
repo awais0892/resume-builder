@@ -6,7 +6,18 @@
   "display": "standalone",
   "background_color": "#0b132b",
   "theme_color": "#4a6bff",
-  "orientation": "portrait-primary",
+  "orientation": "any",
+  "categories": ["productivity", "business", "career"],
+  "lang": "en",
+  "dir": "ltr",
+  "scope": "/",
+  "screenshots": [
+    {
+      "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' fill='%234a6bff'/><text y='60' font-size='50' text-anchor='middle' x='50' fill='white'>📄</text></svg>",
+      "sizes": "640x480",
+      "type": "image/svg+xml"
+    }
+  ],
   "icons": [
     {
       "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' fill='%234a6bff'/><text y='60' font-size='50' text-anchor='middle' x='50' fill='white'>📄</text></svg>",
@@ -19,7 +30,40 @@
       "type": "image/svg+xml"
     }
   ],
-  "categories": ["productivity", "business"],
-  "lang": "en",
-  "dir": "ltr"
+  "related_applications": [
+    {
+      "platform": "web",
+      "url": "https://your-resume-builder-url.com",
+      "id": "com.nexgen.resumebuilder"
+    }
+  ],
+  "prefer_related_applications": false,
+  "shortcuts": [
+    {
+      "name": "Create Resume",
+      "short_name": "New Resume",
+      "description": "Start building a new resume",
+      "url": "/pages/builder.html",
+      "icons": [
+        {
+          "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' fill='%234a6bff'/><text y='60' font-size='50' text-anchor='middle' x='50' fill='white'>➕</text></svg>",
+          "sizes": "96x96",
+          "type": "image/svg+xml"
+        }
+      ]
+    },
+    {
+      "name": "View Templates",
+      "short_name": "Templates",
+      "description": "Browse resume templates",
+      "url": "/pages/templates.html",
+      "icons": [
+        {
+          "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' fill='%234a6bff'/><text y='60' font-size='50' text-anchor='middle' x='50' fill='white'>📋</text></svg>",
+          "sizes": "96x96",
+          "type": "image/svg+xml"
+        }
+      ]
+    }
+  ]
 } 

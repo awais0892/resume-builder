@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Offline - Resume Builder</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background-color: #f4f4f4;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+        }
+        .offline-container {
+            text-align: center;
+            background-color: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            max-width: 500px;
+        }
+        .offline-icon {
+            font-size: 5rem;
+            color: #4a6bff;
+            margin-bottom: 1rem;
+        }
+        .btn-retry {
+            margin-top: 1rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="offline-container">
+        <div class="offline-icon">
+            🌐
+        </div>
+        <h2>You're Offline</h2>
+        <p>It seems you've lost your internet connection. Don't worry, you can still access some features of the Resume Builder.</p>
+        <p>Check your network connection and try again.</p>
+        <button onclick="window.location.reload()" class="btn btn-primary btn-retry">
+            Retry Connection
+        </button>
+    </div>
+</body>
+</html> 
