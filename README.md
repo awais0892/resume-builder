@@ -24,6 +24,27 @@ git clone https://github.com/yourusername/resume-builder.git
 
 3. Launch the application by opening `index.html` in your web browser.
 
+## Deployment
+
+### Netlify Deployment
+
+1. Push your code to GitHub
+2. Connect your repository to Netlify
+3. Deploy settings will be automatically configured using `netlify.toml`
+
+### Manual Deployment
+
+1. Build the project (if needed)
+2. Upload all files to your web server
+3. Ensure all files are in the root directory
+
+### Performance Optimization
+
+- Service Worker for offline functionality
+- Preloaded critical resources
+- Optimized caching strategies
+- Progressive Web App features
+
 ## Usage
 
 ### Creating a Resume

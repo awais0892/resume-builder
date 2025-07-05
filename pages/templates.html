@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Templates - Futuristic Resume Builder</title>
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
@@ -227,6 +228,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="../js/lazy-loading.js"></script>
     <script src="../js/main.js"></script>
     <script>
         // Add scroll effect to navbar
@@ -241,33 +243,7 @@
             }
         });
 
-        // Lazy loading images
-        document.addEventListener('DOMContentLoaded', function() {
-            const lazyImages = document.querySelectorAll('.lazy-load');
-            
-            if ('IntersectionObserver' in window) {
-                const imageObserver = new IntersectionObserver(function(entries, observer) {
-                    entries.forEach(function(entry) {
-                        if (entry.isIntersecting) {
-                            const image = entry.target;
-                            image.src = image.dataset.src;
-                            image.classList.remove('lazy-load');
-                            imageObserver.unobserve(image);
-                        }
-                    });
-                });
-                
-                lazyImages.forEach(function(image) {
-                    imageObserver.observe(image);
-                });
-            } else {
-                // Fallback for browsers that don't support Intersection Observer
-                lazyImages.forEach(function(image) {
-                    image.src = image.dataset.src;
-                    image.classList.remove('lazy-load');
-                });
-            }
-        });
+
     </script>
 </body>
 </html> 
