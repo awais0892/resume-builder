@@ -3136,6 +3136,87 @@ p.bullet-point:before {
     box-shadow: 0 5px 15px rgba(74, 107, 255, 0.3);
 }
 
+/* Auto Scroll Image Cards */
+.scroll-container {
+    overflow-x: auto;
+    overflow-y: hidden;
+    white-space: nowrap;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+    padding: 20px 0;
+    margin: 0 -15px;
+    cursor: grab;
+    position: relative;
+}
+
+.scroll-container:active {
+    cursor: grabbing;
+}
+
+.scroll-container::-webkit-scrollbar {
+    height: 8px;
+}
+
+.scroll-container::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.1);
+    border-radius: 4px;
+}
+
+.scroll-container::-webkit-scrollbar-thumb {
+    background: var(--primary-color);
+    border-radius: 4px;
+}
+
+.scroll-container::-webkit-scrollbar-thumb:hover {
+    background: var(--neon-blue);
+}
+
+.scroll-wrapper {
+    display: inline-flex;
+    gap: 20px;
+    padding: 0 15px;
+    min-width: 100%;
+}
+
+.scroll-item {
+    flex: 0 0 auto;
+    width: 300px;
+    transition: transform 0.3s ease;
+}
+
+.scroll-item:hover {
+    transform: scale(1.05);
+}
+
+/* Auto-scroll animation */
+@keyframes autoScroll {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(-100%);
+    }
+}
+
+.auto-scroll {
+    animation: autoScroll 30s linear infinite;
+}
+
+.auto-scroll:hover {
+    animation-play-state: paused;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .scroll-item {
+        width: 250px;
+    }
+    
+    .scroll-wrapper {
+        gap: 15px;
+    }
+}
+
 /* Responsive Design */
 @media (max-width: 768px) {
     .hero-stats {
@@ -3173,4 +3254,92 @@ p.bullet-point:before {
 .animate-on-scroll.animated {
     opacity: 1;
     transform: translateY(0);
-} 
+}
+
+/* SweetAlert2 Custom Styles - Futuristic Theme */
+.swal2-popup.swal2-custom-popup {
+  border-radius: 1.5rem;
+  background: linear-gradient(135deg, #181f2b 0%, #232946 100%);
+  color: #e0e6f7;
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+  border: 1px solid #2e3650;
+  max-width: 340px !important;
+  min-width: 260px;
+  padding: 1.5rem 1.2rem 1.2rem 1.2rem;
+}
+.swal2-title.swal2-custom-title {
+  color: #7f9cf5;
+  font-family: 'Orbitron', 'Montserrat', Arial, sans-serif;
+  font-size: 1.25rem;
+  letter-spacing: 0.04em;
+  text-shadow: 0 2px 8px #23294644;
+}
+.swal2-content.swal2-custom-content,
+.swal2-html-container {
+  color: #e0e6f7;
+  font-size: 1rem;
+  font-family: 'Montserrat', Arial, sans-serif;
+}
+.swal2-confirm.swal2-custom-confirm {
+  background: linear-gradient(90deg, #7f9cf5 0%, #4f46e5 100%);
+  color: #fff;
+  border-radius: 0.75rem;
+  font-weight: 600;
+  font-family: 'Montserrat', Arial, sans-serif;
+  box-shadow: 0 2px 8px #4f46e555;
+  border: none;
+  padding: 0.5rem 1.5rem;
+  transition: background 0.2s;
+}
+.swal2-confirm.swal2-custom-confirm:hover {
+  background: linear-gradient(90deg, #4f46e5 0%, #7f9cf5 100%);
+}
+.swal2-cancel.swal2-custom-cancel {
+  background: #232946;
+  color: #7f9cf5;
+  border-radius: 0.75rem;
+  font-weight: 600;
+  font-family: 'Montserrat', Arial, sans-serif;
+  border: 1px solid #7f9cf5;
+  padding: 0.5rem 1.5rem;
+  margin-left: 0.5rem;
+  transition: background 0.2s, color 0.2s;
+}
+.swal2-cancel.swal2-custom-cancel:hover {
+  background: #181f2b;
+  color: #fff;
+}
+.swal2-icon.swal2-warning {
+  border-color: #f59e0b !important;
+  color: #f59e0b !important;
+}
+.swal2-icon.swal2-success {
+  border-color: #10b981 !important;
+  color: #10b981 !important;
+}
+.swal2-icon.swal2-error {
+  border-color: #ef4444 !important;
+  color: #ef4444 !important;
+}
+.swal2-icon.swal2-info {
+  border-color: #3b82f6 !important;
+  color: #3b82f6 !important;
+}
+.swal2-icon.swal2-question {
+  border-color: #7f9cf5 !important;
+  color: #7f9cf5 !important;
+}
+.swal2-actions {
+  margin-top: 1.5rem !important;
+}
+.swal2-styled:focus {
+  box-shadow: 0 0 0 2px #7f9cf5cc !important;
+  outline: none !important;
+}
+@media (max-width: 400px) {
+  .swal2-popup.swal2-custom-popup {
+    max-width: 95vw !important;
+    min-width: 0;
+    padding: 1rem 0.5rem;
+  }
+}
