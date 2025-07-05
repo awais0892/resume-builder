@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Templates - Futuristic Resume Builder</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <link rel="stylesheet" href="../css/styles.css">
+</head>
+<body>
+    <!-- Futuristic Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="../index.html">
+                <i class="fas fa-file-alt me-2"></i>NexGen Resume
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="../index.html">
+                            <i class="fas fa-home me-1"></i> Home
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="builder.html">
+                            <i class="fas fa-tools me-1"></i> Create Resume
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="templates.html">
+                            <i class="fas fa-layer-group me-1"></i> Templates
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="about.html">
+                            <i class="fas fa-info-circle me-1"></i> About
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container mt-5 pt-5">
+        <div class="text-center mb-5">
+            <h1 class="display-4 fw-bold">Choose Your Template</h1>
+            <p class="lead text-muted">Select from our collection of professionally designed resume templates</p>
+        </div>
+
+        <div class="row g-4">
+            <!-- Modern Template -->
+            <div class="col-md-4 mb-4">
+                <div class="card template-card">
+                    <img data-src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" 
+                         class="card-img-top lazy-load" alt="Modern Template">
+                    <div class="card-body">
+                        <h5 class="card-title">Modern Template</h5>
+                        <p class="card-text">Clean and contemporary design</p>
+                        <button class="btn btn-primary" data-template="modern">Use Template</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Professional Template -->
+            <div class="col-md-4 mb-4">
+                <div class="card template-card">
+                    <img data-src="https://images.unsplash.com/photo-1547658719-da2b51169166?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1064&q=80" 
+                         class="card-img-top lazy-load" alt="Professional Template">
+                    <div class="card-body">
+                        <h5 class="card-title">Professional Template</h5>
+                        <p class="card-text">Classic and formal layout</p>
+                        <button class="btn btn-primary" data-template="professional">Use Template</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Creative Template -->
+            <div class="col-md-4 mb-4">
+                <div class="card template-card">
+                    <img data-src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" 
+                         class="card-img-top lazy-load" alt="Creative Template">
+                    <div class="card-body">
+                        <h5 class="card-title">Creative Template</h5>
+                        <p class="card-text">Bold and artistic design</p>
+                        <button class="btn btn-primary" data-template="creative">Use Template</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Europass Template -->
+            <div class="col-md-4 mb-4">
+                <div class="card template-card">
+                    <img data-src="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" 
+                         class="card-img-top lazy-load" alt="Europass Template">
+                    <div class="card-body">
+                        <h5 class="card-title">Europass Template</h5>
+                        <p class="card-text">Standard European format</p>
+                        <button class="btn btn-primary" data-template="europass">Use Template</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Minimalist Template -->
+            <div class="col-md-4 mb-4">
+                <div class="card template-card">
+                    <img data-src="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" 
+                         class="card-img-top lazy-load" alt="Minimalist Template">
+                    <div class="card-body">
+                        <h5 class="card-title">Minimalist Template</h5>
+                        <p class="card-text">Simple and elegant design</p>
+                        <button class="btn btn-primary" data-template="minimalist">Use Template</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Executive Template -->
+            <div class="col-md-4 mb-4">
+                <div class="card template-card">
+                    <img data-src="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" 
+                         class="card-img-top lazy-load" alt="Executive Template">
+                    <div class="card-body">
+                        <h5 class="card-title">Executive Template</h5>
+                        <p class="card-text">Sophisticated and professional</p>
+                        <button class="btn btn-primary" data-template="executive">Use Template</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- External Templates Section -->
+        <div class="mt-5 pt-4">
+            <h2 class="text-center mb-4">Or Use Premium Canva Templates</h2>
+            <div class="row align-items-center">
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-body p-4">
+                            <h4 class="mb-3">Canva Professional Templates</h4>
+                            <p>Want even more professional designs? You can use your resume data with Canva's professional templates!</p>
+                            <ul class="mb-4">
+                                <li>Access hundreds of professional templates</li>
+                                <li>Customizable designs with advanced options</li>
+                                <li>Easily import your resume data</li>
+                                <li>Download in multiple formats (PDF, PNG, etc.)</li>
+                            </ul>
+                            <a href="builder.html" class="btn btn-gradient">
+                                <i class="fas fa-pen me-2"></i>Start Building Your Resume
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="canva-templates-showcase">
+                        <div class="row g-2">
+                            <div class="col-6">
+                                <img src="https://marketplace.canva.com/EAFVuyCl_Z8/1/0/1131w/canva-black-white-minimalist-cv-resume-SJ-Vnx-J-qQ.jpg" alt="Canva Template" class="img-fluid rounded shadow">
+                            </div>
+                            <div class="col-6">
+                                <img src="https://marketplace.canva.com/EAFSisfUKFU/1/0/1131w/canva-grey-black-minimal-cv-resume-Z3KUFmc1nSA.jpg" alt="Canva Template" class="img-fluid rounded shadow">
+                            </div>
+                            <div class="col-6 mt-2">
+                                <img src="https://marketplace.canva.com/EAFacl7GCdo/1/0/1131w/canva-black-and-white-minimalist-resume-DbtKW2OS6cY.jpg" alt="Canva Template" class="img-fluid rounded shadow">
+                            </div>
+                            <div class="col-6 mt-2">
+                                <img src="https://marketplace.canva.com/EAFYKUXUoew/1/0/1131w/canva-blue-modern-cv-resume-i0jzdJ6PuM4.jpg" alt="Canva Template" class="img-fluid rounded shadow">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Template Preview Modal -->
+    <div class="modal fade" id="templatePreviewModal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Template Preview</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <img src="" alt="Template Preview" class="img-fluid" id="templatePreviewImage">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" id="useTemplateBtn">Use Template</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Futuristic Footer -->
+    <footer class="footer py-4">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-md-4 mb-3 mb-md-0">
+                    <h5 class="navbar-brand mb-0">
+                        <i class="fas fa-file-alt me-2"></i>NexGen Resume
+                    </h5>
+                    <p class="mt-2 mb-0 small">Empowering your career journey with next-gen resume tools.</p>
+                </div>
+                <div class="col-md-4 mb-3 mb-md-0 text-center">
+                    <div class="social-links">
+                        <a href="https://x.com/AwaisKh84060077" class="mx-2"><i class="fab fa-twitter"></i></a>
+                        <a href="https://www.linkedin.com/in/awaisahmads/" class="mx-2"><i class="fab fa-linkedin"></i></a>
+                        <a href="https://www.instagram.com/awais_ahmd12/?hl=en" class="mx-2"><i class="fab fa-instagram"></i></a>
+                        <a href="https://github.com/awais0892" class="mx-2"><i class="fab fa-github"></i></a>
+                    </div>
+                </div>
+                <div class="col-md-4 text-md-end">
+                    <a href="#" class="text-white me-3">Privacy</a>
+                    <a href="#" class="text-white me-3">Terms</a>
+                    <a href="awais.32525@gmail.com" class="text-white">Contact</a>
+                    <p class="mt-2 mb-0 small">&copy; 2025 NexGen Resume Builder</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="../js/main.js"></script>
+    <script>
+        // Add scroll effect to navbar
+        window.addEventListener('scroll', function() {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 50) {
+                navbar.style.background = 'var(--futuristic-gradient)';
+                navbar.style.padding = '0.5rem 0';
+            } else {
+                navbar.style.background = 'var(--futuristic-gradient)';
+                navbar.style.padding = '1rem 0';
+            }
+        });
+
+        // Lazy loading images
+        document.addEventListener('DOMContentLoaded', function() {
+            const lazyImages = document.querySelectorAll('.lazy-load');
+            
+            if ('IntersectionObserver' in window) {
+                const imageObserver = new IntersectionObserver(function(entries, observer) {
+                    entries.forEach(function(entry) {
+                        if (entry.isIntersecting) {
+                            const image = entry.target;
+                            image.src = image.dataset.src;
+                            image.classList.remove('lazy-load');
+                            imageObserver.unobserve(image);
+                        }
+                    });
+                });
+                
+                lazyImages.forEach(function(image) {
+                    imageObserver.observe(image);
+                });
+            } else {
+                // Fallback for browsers that don't support Intersection Observer
+                lazyImages.forEach(function(image) {
+                    image.src = image.dataset.src;
+                    image.classList.remove('lazy-load');
+                });
+            }
+        });
+    </script>
+</body>
+</html> 

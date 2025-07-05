@@ -1,0 +1,553 @@
+/* General Styles */
+:root {
+    --primary-color: #4e73df;
+    --secondary-color: #1cc88a;
+    --accent-color: #f6c23e;
+    --danger-color: #e74a3b;
+    --light-bg: #f8f9fc;
+    --dark-bg: #2a2f3d;
+    --dark-text: #5a5c69;
+    --light-text: #f8f9fc;
+    --border-radius: 0.35rem;
+    --box-shadow: 0 0.15rem 1.75rem 0 rgba(58, 59, 69, 0.15);
+    --transition: all 0.3s ease;
+    --gradient-primary: linear-gradient(135deg, #4e73df 0%, #224abe 100%);
+}
+
+body {
+    font-family: 'Nunito', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    transition: var(--transition);
+    background-color: var(--light-bg);
+    color: var(--dark-text);
+    line-height: 1.6;
+}
+
+/* Dark Mode */
+body.dark-mode {
+    background-color: var(--dark-bg);
+    color: var(--light-text);
+}
+
+body.dark-mode .card,
+body.dark-mode .accordion-item {
+    background-color: #3a3f4b;
+    color: var(--light-text);
+    border-color: #4a4f5b;
+}
+
+body.dark-mode .form-control,
+body.dark-mode .form-select {
+    background-color: #3a3f4b;
+    color: var(--light-text);
+    border-color: #4a4f5b;
+}
+
+body.dark-mode .modal-content {
+    background-color: #3a3f4b;
+    color: var(--light-text);
+}
+
+/* Layout */
+.container-fluid {
+    max-width: 1800px;
+}
+
+.form-panel, .preview-panel {
+    height: calc(100vh - 180px);
+    overflow-y: auto;
+}
+
+/* Header */
+header {
+    background: var(--gradient-primary);
+    position: relative;
+    overflow: hidden;
+    padding: 2rem 1rem;
+}
+
+.header-content {
+    position: relative;
+    z-index: 2;
+}
+
+.floating-icons {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    opacity: 0.1;
+}
+
+.floating-icons i {
+    position: absolute;
+    font-size: 8rem;
+    color: white;
+    animation: float 6s ease-in-out infinite;
+}
+
+.floating-icons .icon-1 {
+    top: 20%;
+    left: 10%;
+    animation-delay: 0s;
+}
+
+.floating-icons .icon-2 {
+    top: 60%;
+    left: 70%;
+    animation-delay: 1s;
+}
+
+.floating-icons .icon-3 {
+    top: 30%;
+    left: 80%;
+    animation-delay: 2s;
+}
+
+@keyframes float {
+    0%, 100% {
+        transform: translateY(0) rotate(0deg);
+    }
+    50% {
+        transform: translateY(-20px) rotate(5deg);
+    }
+}
+
+/* Form Styles */
+.accordion-button:not(.collapsed) {
+    background-color: rgba(78, 115, 223, 0.1);
+    color: var(--primary-color);
+    font-weight: 600;
+}
+
+.accordion-button:focus {
+    box-shadow: none;
+    border-color: rgba(78, 115, 223, 0.25);
+}
+
+.card {
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+    transition: var(--transition);
+    border: none;
+}
+
+.card:hover {
+    box-shadow: 0 0.5rem 1.5rem rgba(0, 0, 0, 0.15);
+    transform: translateY(-2px);
+}
+
+.btn-primary {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+}
+
+.btn-success {
+    background-color: var(--secondary-color);
+    border-color: var(--secondary-color);
+}
+
+.btn-danger {
+    background-color: var(--danger-color);
+    border-color: var(--danger-color);
+}
+
+.btn-pill {
+    border-radius: 50rem;
+    padding: 0.5rem 1.25rem;
+}
+
+.bg-gradient-primary {
+    background: var(--gradient-primary);
+}
+
+/* Skill Tags */
+.skill-tag {
+    background-color: rgba(78, 115, 223, 0.1);
+    color: var(--primary-color);
+    border: 1px solid rgba(78, 115, 223, 0.2);
+    border-radius: 50rem;
+    padding: 0.35rem 0.75rem;
+    display: inline-flex;
+    align-items: center;
+    transition: var(--transition);
+    font-size: 0.875rem;
+}
+
+.skill-tag:hover {
+    background-color: rgba(78, 115, 223, 0.2);
+    transform: translateY(-1px);
+}
+
+.skill-tag .remove-skill {
+    margin-left: 5px;
+    cursor: pointer;
+    opacity: 0.7;
+    transition: var(--transition);
+}
+
+.skill-tag .remove-skill:hover {
+    opacity: 1;
+    color: var(--danger-color);
+}
+
+/* Resume Preview */
+.resume-preview {
+    font-family: 'Nunito', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    padding: 2rem;
+    background-color: white;
+    min-height: 1123px; /* A4 height in pixels at 96dpi */
+    width: 794px; /* A4 width in pixels at 96dpi */
+    margin: 0 auto;
+    box-shadow: var(--box-shadow);
+    position: relative;
+    transition: var(--transition);
+}
+
+body.dark-mode .resume-preview {
+    background-color: white;
+    color: #333;
+}
+
+/* Modern Template */
+.modern-template .resume-header {
+    text-align: center;
+    margin-bottom: 2rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 2px solid #eaeaea;
+}
+
+.modern-template .resume-header h1 {
+    font-size: 2.25rem;
+    margin-bottom: 0.5rem;
+    color: var(--primary-color);
+    font-weight: 700;
+}
+
+.modern-template .resume-header p {
+    font-size: 1.25rem;
+    color: #6c757d;
+    margin-bottom: 1rem;
+}
+
+.modern-template .contact-info {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+    margin-top: 1rem;
+    font-size: 0.9rem;
+}
+
+.modern-template .contact-info span {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.modern-template .social-links {
+    margin-top: 1rem;
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+}
+
+.modern-template .social-links a {
+    color: var(--primary-color);
+    font-size: 1.25rem;
+    transition: var(--transition);
+}
+
+.modern-template .social-links a:hover {
+    transform: translateY(-2px);
+    opacity: 0.8;
+}
+
+.modern-template h2 {
+    color: var(--primary-color);
+    font-size: 1.5rem;
+    margin-top: 1.5rem;
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid #eaeaea;
+    font-weight: 600;
+}
+
+.modern-template .experience-item, 
+.modern-template .education-item,
+.modern-template .project-item {
+    margin-bottom: 1.5rem;
+}
+
+.modern-template .job-title,
+.modern-template .degree {
+    font-weight: 600;
+    font-size: 1.1rem;
+    margin-bottom: 0.25rem;
+    color: #343a40;
+}
+
+.modern-template .company-name,
+.modern-template .institution-name,
+.modern-template .project-name {
+    color: #6c757d;
+    font-size: 1rem;
+    margin-bottom: 0.25rem;
+}
+
+.modern-template .date-range {
+    color: #6c757d;
+    font-style: italic;
+    font-size: 0.9rem;
+    margin-bottom: 0.5rem;
+}
+
+.modern-template .skills-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.modern-template .skill-item {
+    background-color: rgba(78, 115, 223, 0.1);
+    color: var(--primary-color);
+    padding: 0.35rem 0.75rem;
+    border-radius: 50rem;
+    font-size: 0.875rem;
+}
+
+/* Professional Template */
+.professional-template {
+    font-family: 'Calibri', 'Arial', sans-serif;
+}
+
+.professional-template .resume-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+    padding-bottom: 1rem;
+    border-bottom: 2px solid #2c3e50;
+}
+
+.professional-template .resume-header h1 {
+    font-size: 1.8rem;
+    margin-bottom: 0.25rem;
+    color: #2c3e50;
+    font-weight: 700;
+}
+
+.professional-template .resume-header p {
+    font-size: 1.1rem;
+    color: #7f8c8d;
+    margin-bottom: 0;
+}
+
+.professional-template .contact-info {
+    text-align: right;
+    font-size: 0.9rem;
+}
+
+.professional-template h2 {
+    color: #2c3e50;
+    font-size: 1.3rem;
+    margin-top: 1.5rem;
+    margin-bottom: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* Europass Template */
+.europass-template {
+    font-family: 'Arial', sans-serif;
+    padding: 1.5cm;
+}
+
+.europass-template .resume-header {
+    border-bottom: 1px solid #005b9f;
+    padding-bottom: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.europass-template .resume-header h1 {
+    color: #005b9f;
+    font-size: 1.8rem;
+    margin-bottom: 0.5rem;
+    font-weight: 700;
+}
+
+.europass-template h2 {
+    color: #005b9f;
+    font-size: 1.2rem;
+    margin-top: 1.2rem;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+    border-bottom: 1px solid #005b9f;
+    padding-bottom: 0.2rem;
+}
+
+/* Minimalist Template */
+.minimalist-template {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    padding: 3rem;
+}
+
+.minimalist-template .resume-header {
+    margin-bottom: 2rem;
+}
+
+.minimalist-template .resume-header h1 {
+    font-size: 2rem;
+    margin-bottom: 0.25rem;
+    font-weight: 300;
+    letter-spacing: 1px;
+}
+
+.minimalist-template .resume-header p {
+    font-size: 1rem;
+    color: #7f8c8d;
+    margin-bottom: 0.5rem;
+}
+
+.minimalist-template h2 {
+    font-size: 1.1rem;
+    margin-top: 1.5rem;
+    margin-bottom: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+/* Responsive Design */
+@media (max-width: 1200px) {
+    .resume-preview {
+        width: 100%;
+        min-height: auto;
+    }
+}
+
+@media (max-width: 992px) {
+    .form-panel, .preview-panel {
+        height: auto;
+        max-height: none;
+    }
+    
+    .preview-panel {
+        margin-top: 2rem;
+    }
+    
+    .resume-preview {
+        width: 100%;
+        min-height: auto;
+    }
+}
+
+@media (max-width: 768px) {
+    header {
+        padding: 1.5rem 1rem;
+    }
+    
+    .floating-icons i {
+        font-size: 5rem;
+    }
+    
+    .resume-preview {
+        padding: 1.5rem;
+    }
+}
+
+/* Animation Effects */
+.animate-on-scroll {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.animate-on-scroll.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.fade-in-up {
+    animation: fadeInUp 0.6s ease forwards;
+}
+
+.slide-in {
+    animation: slideIn 0.4s ease forwards;
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateX(20px);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+/* PDF Export Styles */
+@media print {
+    body * {
+        visibility: hidden;
+    }
+    
+    .resume-preview, .resume-preview * {
+        visibility: visible;
+    }
+    
+    .resume-preview {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        box-shadow: none;
+        padding: 0;
+        margin: 0;
+    }
+    
+    .no-print {
+        display: none !important;
+    }
+}
+
+/* Rating Stars */
+.rating-stars {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.rating-stars i {
+    color: #ddd;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.rating-stars i:hover,
+.rating-stars i.active {
+    color: var(--accent-color);
+}
+
+/* Feature Cards */
+.feature-card {
+    transition: var(--transition);
+}
+
+.feature-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
+}
