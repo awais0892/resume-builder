@@ -102,6 +102,35 @@
                             </div>
                         </div>
 
+                        <!-- Profile Image Upload -->
+                        <div class="mb-4">
+                            <h3 class="h5 mb-3">Profile Image <span class="text-muted">(Optional)</span></h3>
+                            <div class="row g-3">
+                                <div class="col-12">
+                                    <div class="image-upload-container">
+                                        <div class="image-preview" id="imagePreview">
+                                            <div class="placeholder-image">
+                                                <i class="fas fa-user"></i>
+                                                <p>No image selected</p>
+                                            </div>
+                                        </div>
+                                        <div class="image-upload-controls">
+                                            <input type="file" id="profileImage" accept="image/*" class="d-none">
+                                            <button type="button" id="uploadImageBtn" class="btn btn-outline-primary">
+                                                <i class="fas fa-upload me-2"></i>Upload Image
+                                            </button>
+                                            <button type="button" id="removeImageBtn" class="btn btn-outline-danger ms-2" style="display: none;">
+                                                <i class="fas fa-trash me-2"></i>Remove
+                                            </button>
+                                        </div>
+                                        <div class="text-muted small mt-2">
+                                            Recommended: Square image, max 2MB. Works best with Europass template.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
                         <!-- Social Links -->
                         <div class="mb-4">
                             <h3 class="h5 mb-3">Social Links <span class="text-muted">(Optional)</span></h3>
@@ -198,7 +227,7 @@
                             <div class="row g-3">
                                 <div class="col-md-4">
                                     <div class="card template-selection">
-                                        <img src="https://d.novoresume.com/images/doc/functional-resume-template.png" class="card-img-top" alt="Modern Template">
+                                        <img src="https://images.pexels.com/photos/7688336/pexels-photo-7688336.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" class="card-img-top" alt="Modern Template">
                                         <div class="card-body text-center">
                                             <h5 class="card-title">Modern</h5>
                                             <button type="button" class="btn btn-outline-primary btn-sm" data-template="modern">
@@ -209,7 +238,7 @@
                                 </div>
                                 <div class="col-md-4">
                                     <div class="card template-selection">
-                                        <img src="https://d.novoresume.com/images/doc/professional-resume-template.png" class="card-img-top" alt="Professional Template">
+                                        <img src="https://images.pexels.com/photos/7681091/pexels-photo-7681091.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" class="card-img-top" alt="Professional Template">
                                         <div class="card-body text-center">
                                             <h5 class="card-title">Professional</h5>
                                             <button type="button" class="btn btn-outline-primary btn-sm" data-template="professional">
@@ -220,7 +249,7 @@
                                 </div>
                                 <div class="col-md-4">
                                     <div class="card template-selection">
-                                        <img src="https://d.novoresume.com/images/doc/creative-resume-template.png" class="card-img-top" alt="Creative Template">
+                                        <img src="https://images.pexels.com/photos/7681093/pexels-photo-7681093.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" class="card-img-top" alt="Creative Template">
                                         <div class="card-body text-center">
                                             <h5 class="card-title">Creative</h5>
                                             <button type="button" class="btn btn-outline-primary btn-sm" data-template="creative">
@@ -228,6 +257,89 @@
                                             </button>
                                         </div>
                                     </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="card template-selection">
+                                        <img src="https://images.pexels.com/photos/7681095/pexels-photo-7681095.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" class="card-img-top" alt="Europass Template">
+                                        <div class="card-body text-center">
+                                            <h5 class="card-title">Europass</h5>
+                                            <button type="button" class="btn btn-outline-primary btn-sm" data-template="europass">
+                                                <i class="fas fa-check me-1"></i>Select
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="card template-selection">
+                                        <img src="https://images.pexels.com/photos/7681097/pexels-photo-7681097.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" class="card-img-top" alt="Minimalist Template">
+                                        <div class="card-body text-center">
+                                            <h5 class="card-title">Minimalist</h5>
+                                            <button type="button" class="btn btn-outline-primary btn-sm" data-template="minimalist">
+                                                <i class="fas fa-check me-1"></i>Select
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="card template-selection">
+                                        <img src="https://images.pexels.com/photos/7681099/pexels-photo-7681099.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" class="card-img-top" alt="Executive Template">
+                                        <div class="card-body text-center">
+                                            <h5 class="card-title">Executive</h5>
+                                            <button type="button" class="btn btn-outline-primary btn-sm" data-template="executive">
+                                                <i class="fas fa-check me-1"></i>Select
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="card template-selection">
+                                        <img src="https://images.pexels.com/photos/7681101/pexels-photo-7681101.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" class="card-img-top" alt="Classic Template">
+                                        <div class="card-body text-center">
+                                            <h5 class="card-title">Classic</h5>
+                                            <button type="button" class="btn btn-outline-primary btn-sm" data-template="classic">
+                                                <i class="fas fa-check me-1"></i>Select
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="card template-selection">
+                                        <img src="https://images.pexels.com/photos/7681103/pexels-photo-7681103.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" class="card-img-top" alt="Elegant Template">
+                                        <div class="card-body text-center">
+                                            <h5 class="card-title">Elegant</h5>
+                                            <button type="button" class="btn btn-outline-primary btn-sm" data-template="elegant">
+                                                <i class="fas fa-check me-1"></i>Select
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Data Management -->
+                        <div class="mb-4">
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <h3 class="h5 mb-0">Data Management</h3>
+                                <div id="saveStatus" class="text-muted small">
+                                    <i class="fas fa-circle text-success"></i> Auto-save enabled
+                                </div>
+                            </div>
+                            <div class="row g-2">
+                                <div class="col-md-4">
+                                    <button type="button" id="exportBtn" class="btn btn-outline-primary w-100">
+                                        <i class="fas fa-download me-2"></i>Export Data
+                                    </button>
+                                </div>
+                                <div class="col-md-4">
+                                    <label for="importFile" class="btn btn-outline-secondary w-100 mb-0">
+                                        <i class="fas fa-upload me-2"></i>Import Data
+                                    </label>
+                                    <input type="file" id="importFile" accept=".json" style="display: none;">
+                                </div>
+                                <div class="col-md-4">
+                                    <button type="button" id="resetBtn" class="btn btn-outline-danger w-100">
+                                        <i class="fas fa-trash me-2"></i>Reset Form
+                                    </button>
                                 </div>
                             </div>
                         </div>

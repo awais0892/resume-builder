@@ -6,6 +6,8 @@ const urlsToCache = [
   '/js/main.js',
   '/js/lazy-loading.js',
   '/js/analytics.js',
+  '/js/image-fallback.js',
+  '/js/placeholder-images.js',
   '/pages/builder.html',
   '/pages/preview.html',
   '/pages/templates.html',
