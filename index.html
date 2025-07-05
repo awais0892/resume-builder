@@ -14,6 +14,16 @@
     <meta name="twitter:title" content="Futuristic Resume Builder">
     <meta name="twitter:description" content="Create professional resumes in minutes with our modern resume builder.">
     
+    <!-- Strict Content Security Policy -->
+    <meta http-equiv="Content-Security-Policy" content="
+        default-src 'self';
+        script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net 'nonce-random123';
+        style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://cdnjs.cloudflare.com;
+        img-src 'self' data: https:;
+        font-src 'self' https://cdnjs.cloudflare.com https://fonts.gstatic.com;
+        connect-src 'self' https://cdn.jsdelivr.net https://cdnjs.cloudflare.com;
+    ">
+    
     <title>NexGen Resume Builder - Create Professional Resumes</title>
     
     <!-- Preload critical resources -->
@@ -32,9 +42,19 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="default">
     <meta name="apple-mobile-web-app-title" content="Resume Builder">
     
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <!-- Fallback Local Resources -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/css/animate.min.css">
+    
+    <!-- Conditional External Resources -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" 
+          onerror="this.onerror=null;this.href='/css/bootstrap.min.css';">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+          onerror="this.onerror=null;this.href='/css/font-awesome.min.css';">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+          onerror="this.onerror=null;this.href='/css/animate.min.css';">
+    
     <link rel="stylesheet" href="css/styles.css">
 </head>
 <body class="landing-page">
@@ -428,11 +448,7 @@
                 </div>
                 <div class="col-lg-4 mb-4">
                     <h6 class="text-white mb-3">Newsletter</h6>
-                    <p class="text-light mb-3">Get the latest tips and updates for your career.</p>
-                    <div class="input-group">
-                        <input type="email" class="form-control" placeholder="Enter your email">
-                        <button class="btn btn-primary" type="button">Subscribe</button>
-                    </div>
+                    <p class="text-light mb-3">Get the latest tips and updates for your career.</p
                 </div>
             </div>
             <hr class="my-4">
@@ -450,7 +466,8 @@
     </footer>
 
     <!-- Scripts -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+            onerror="this.onerror=null;this.src='/js/bootstrap.bundle.min.js';"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="js/analytics.js"></script>
     <script src="js/main.js"></script>

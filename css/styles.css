@@ -3769,7 +3769,7 @@ body.dark-mode {
 
 .dark-mode .hero-section {
     background: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)), 
-                url('https://images.unsplash.com/photo-1516321497487-e288fb19713f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80') no-repeat center center fixed;
+                url('https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80') no-repeat center center fixed;
     background-size: cover;
 }
 
@@ -4117,5 +4117,145 @@ img {
     body {
         background-color: var(--background-color);
         color: var(--text-color);
+    }
+}
+
+/* Dark Mode Enhancements */
+@media (prefers-color-scheme: dark) {
+    :root {
+        --primary-color: #4a6bff;
+        --secondary-color: #6c757d;
+        --success-color: #28a745;
+        --dark-color: #121212;
+        --light-color: #1e1e1e;
+        --text-color: #e0e0e0;
+        --background-color: #121212;
+        --card-background: #1e1e1e;
+        --border-color: #333;
+    }
+
+    body {
+        background-color: var(--dark-color);
+        color: var(--text-color);
+    }
+}
+
+body.dark-mode {
+    background-color: var(--dark-color);
+    color: var(--text-color);
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Dark Mode Specific Styles */
+.dark-mode .navbar {
+    background: linear-gradient(135deg, #1e1e1e 0%, #121212 100%) !important;
+    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.5);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.dark-mode .navbar-brand {
+    color: var(--primary-color) !important;
+}
+
+.dark-mode .nav-link {
+    color: rgba(255, 255, 255, 0.7) !important;
+}
+
+.dark-mode .nav-link:hover {
+    color: var(--primary-color) !important;
+}
+
+.dark-mode .hero-section {
+    background: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)), 
+                url('https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80') no-repeat center center fixed;
+    background-size: cover;
+}
+
+.dark-mode .feature-card {
+    background-color: var(--card-background) !important;
+    border: 1px solid var(--border-color);
+}
+
+.dark-mode .feature-card h3 {
+    color: var(--primary-color) !important;
+}
+
+.dark-mode .feature-card p {
+    color: var(--text-color) !important;
+}
+
+.dark-mode .btn-primary {
+    background-color: var(--primary-color) !important;
+    border-color: var(--primary-color) !important;
+    color: white !important;
+}
+
+.dark-mode .btn-primary:hover {
+    background-color: #3a4fff !important;
+    border-color: #3a4fff !important;
+}
+
+.dark-mode .form-control {
+    background-color: var(--light-color) !important;
+    border-color: var(--border-color) !important;
+    color: var(--text-color) !important;
+}
+
+.dark-mode .form-control:focus {
+    background-color: #2a2a2a !important;
+    border-color: var(--primary-color) !important;
+    box-shadow: 0 0 0 0.2rem rgba(74, 107, 255, 0.25) !important;
+}
+
+.dark-mode .modal-content {
+    background-color: var(--dark-color) !important;
+    color: var(--text-color) !important;
+}
+
+.dark-mode .section-title {
+    color: var(--primary-color) !important;
+}
+
+.dark-mode .lead {
+    color: rgba(255, 255, 255, 0.8) !important;
+}
+
+.dark-mode .footer {
+    background-color: var(--light-color) !important;
+    color: var(--text-color) !important;
+}
+
+.dark-mode .footer a {
+    color: var(--primary-color) !important;
+}
+
+.dark-mode .footer a:hover {
+    color: #3a4fff !important;
+}
+
+/* Scrollbar in Dark Mode */
+.dark-mode ::-webkit-scrollbar {
+    width: 12px;
+    background-color: var(--dark-color);
+}
+
+.dark-mode ::-webkit-scrollbar-thumb {
+    background-color: var(--primary-color);
+    border-radius: 10px;
+}
+
+.dark-mode ::-webkit-scrollbar-thumb:hover {
+    background-color: #3a4fff;
+}
+
+/* Mobile Responsiveness for Dark Mode */
+@media (max-width: 768px) {
+    .dark-mode .hero-section {
+        background-size: cover;
+        background-position: center;
+    }
+
+    .dark-mode .hero-content {
+        text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
     }
 }
