@@ -11,18 +11,18 @@ const ALLOWED_DOMAINS = [
 
 // Performance-optimized asset lists
 const CRITICAL_CACHE = [
-    '/',
-    '/index.html',
+  '/',
+  '/index.html',
     '/offline.html',
-    '/css/styles.css',
+  '/css/styles.css',
     '/js/main.js'
 ];
 
 const EXTERNAL_RESOURCES = [
-    'https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css',
-    'https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js',
-    'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css',
-    'https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css'
+  'https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css',
+  'https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js',
+  'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css',
+  'https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css'
 ];
 
 // Advanced caching strategies
@@ -34,7 +34,7 @@ const CACHE_STRATEGIES = {
 
 // Install event with performance-optimized caching
 self.addEventListener('install', event => {
-    event.waitUntil(
+  event.waitUntil(
         Promise.all([
             caches.open(`${CACHE_NAME}-critical`).then(cache => cache.addAll(CRITICAL_CACHE)),
             caches.open(`${CACHE_NAME}-external`).then(cache => 
@@ -50,12 +50,12 @@ self.addEventListener('install', event => {
                             })
                             .catch(error => {
                                 console.error(`Error caching ${url}:`, error);
-                            })
+      })
                     )
                 )
             )
         ]).then(() => self.skipWaiting())
-    );
+  );
 });
 
 // Advanced fetch event handler with CSP and domain validation
@@ -67,7 +67,7 @@ self.addEventListener('fetch', event => {
         url.hostname.includes(domain)
     );
 
-    event.respondWith(
+  event.respondWith(
         (async () => {
             try {
                 // Prefer network for same-origin and allowed external domains
@@ -102,21 +102,21 @@ self.addEventListener('fetch', event => {
                     new Response('Offline', { status: 503, statusText: 'Service Unavailable' });
             }
         })()
-    );
+  );
 });
 
 // Optimize cache management during activation
 self.addEventListener('activate', event => {
-    event.waitUntil(
-        caches.keys().then(cacheNames => {
-            return Promise.all(
-                cacheNames.map(cacheName => {
+  event.waitUntil(
+    caches.keys().then(cacheNames => {
+      return Promise.all(
+        cacheNames.map(cacheName => {
                     // Delete old caches
                     if (!cacheName.startsWith(CACHE_NAME)) {
-                        return caches.delete(cacheName);
-                    }
-                })
-            );
+            return caches.delete(cacheName);
+          }
+        })
+      );
         }).then(() => self.clients.claim())
     );
 });
@@ -131,8 +131,8 @@ self.addEventListener('sync', event => {
                 })
                 .catch(error => {
                     console.error('Background sync failed:', error);
-                })
-        );
+    })
+  );
     }
 });
 
