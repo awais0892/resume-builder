@@ -1,10 +1,11 @@
-const CACHE_NAME = 'resume-builder-v1.3';
+const CACHE_NAME = 'resume-builder-v1.4';
 const OFFLINE_URL = '/offline.html';
 
 // Whitelist of allowed external domains for caching
 const ALLOWED_DOMAINS = [
     'cdn.jsdelivr.net',
     'cdnjs.cloudflare.com',
+    'unpkg.com',
     'fonts.googleapis.com',
     'fonts.gstatic.com'
 ];
@@ -22,7 +23,15 @@ const EXTERNAL_RESOURCES = [
   'https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css',
   'https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js',
   'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css',
-  'https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css'
+  'https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css',
+  'https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js',
+  'https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js',
+  'https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js',
+  'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js',
+  'https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.6.0/mammoth.browser.min.js',
+  'https://unpkg.com/@tensorflow/tfjs@4.15.0/dist/tf.min.js',
+  'https://cdn.jsdelivr.net/npm/compromise@14.10.0/builds/compromise.min.js',
+  'https://cdn.jsdelivr.net/npm/sweetalert2@11'
 ];
 
 // Advanced caching strategies
