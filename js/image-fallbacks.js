@@ -4,31 +4,48 @@
 
     // Wait for DOM to be ready
     document.addEventListener('DOMContentLoaded', function() {
+        console.log('Image fallback handler initializing...');
         setupImageFallbacks();
     });
 
     function setupImageFallbacks() {
         // Get all images on the page
         const images = document.querySelectorAll('img[src*="images.unsplash.com"], img[src*="images.pexels.com"]');
+        console.log('Found', images.length, 'external images to monitor');
         
-        images.forEach(function(img) {
+        images.forEach(function(img, index) {
+            console.log(`Setting up fallback for image ${index + 1}:`, img.src, 'alt:', img.alt);
+            
             // Add error event listener
             img.addEventListener('error', function() {
+                console.log('Image error detected for:', this.src);
                 handleImageError(this);
             });
 
-            // Add load event listener to handle slow loading
+            // Add load event listener
             img.addEventListener('load', function() {
+                console.log('Image loaded successfully:', this.src);
                 this.classList.remove('img-error');
             });
 
-            // Set a timeout to check if image loads within reasonable time
+            // Set a shorter timeout to check if image loads
             setTimeout(function() {
                 if (!img.complete || img.naturalHeight === 0) {
+                    console.log('Image timeout or failed to load:', img.src);
                     handleImageError(img);
                 }
-            }, 5000); // 5 second timeout
+            }, 2000); // Reduced to 2 second timeout
         });
+        
+        // Also immediately replace images if CSP is blocking them
+        setTimeout(function() {
+            images.forEach(function(img) {
+                if (!img.complete || img.naturalHeight === 0) {
+                    console.log('Force replacing image due to CSP or loading issues:', img.src);
+                    handleImageError(img);
+                }
+            });
+        }, 100); // Check very quickly
     }
 
     function handleImageError(img) {
