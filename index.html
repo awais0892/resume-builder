@@ -19,7 +19,7 @@
         default-src 'self';
         script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdn.jsdelivr.net https://cdnjs.cloudflare.com https://unpkg.com;
         style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://cdnjs.cloudflare.com;
-        img-src 'self' data: https:;
+        img-src 'self' data: https: https://images.unsplash.com https://images.pexels.com;
         font-src 'self' https://cdnjs.cloudflare.com https://fonts.gstatic.com;
         connect-src 'self' https://cdn.jsdelivr.net https://cdnjs.cloudflare.com https://unpkg.com;
     ">
@@ -56,6 +56,7 @@
           onerror="this.onerror=null;this.href='/css/animate.min.css';">
     
     <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/placeholder-images.css">
 </head>
 <body class="landing-page">
     <!-- Futuristic Navigation -->
@@ -459,6 +460,7 @@
             onerror="this.onerror=null;this.src='/js/bootstrap.bundle.min.js';"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="js/analytics.js"></script>
+    <script src="js/image-fallbacks.js"></script>
     <script src="js/main.js"></script>
     <script nonce="random123">
         // Register Service Worker
